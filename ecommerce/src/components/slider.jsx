@@ -3,6 +3,7 @@ import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRig
 import KeyboardArrowLeftOutlinedIcon from "@mui/icons-material/KeyboardArrowLeftOutlined";
 import { useState } from "react";
 import { itemSlide } from "../data";
+import {mobile} from '../responsive'
 const Container = styled.div`
   width: 100%;
   height: 100vh;
@@ -10,6 +11,7 @@ const Container = styled.div`
   background-color: white;
   position: relative;
   overflow: hidden;
+  ${mobile({ display: "none" })}
 `;
 
 const Wrapper = styled.div`

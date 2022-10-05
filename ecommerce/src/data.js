@@ -63,18 +63,22 @@ export const popularProducts = [
     },
     {
       id:5,
-      img:"https://images.ctfassets.net/5gvckmvm9289/3BlDoZxSSjqAvv1jBJP7TH/65f9a95484117730ace42abf64e89572/Noissue-x-Creatsy-Tote-Bag-Mockup-Bundle-_4_-2.png",
+      img:"https://khothietke.net/wp-content/uploads/2021/04/PNGKhothietke.net-02352.png",
     },
     {
       id:6,
-      img:"https://d3o2e4jr3mxnm3.cloudfront.net/Rocket-Vintage-Chill-Cap_66374_1_lg.png",
+      img:"https://bizweb.dktcdn.net/100/372/934/products/asus-rog-delta-1.png?v=1578560348177",
     },
     {
       id:7,
-      img:"https://www.vintageindustries.nl/download_front/qympzk1762/2217_Arrow_Jacket_Forest.png",
+      img:"https://cdn.techzones.vn/Data/Sites/1/media/gaming-gear/headsets/asus-rog-strix-20/strix_20.png?w=1920",
     },
     {
       id:8,
-      img:"https://www.pngarts.com/files/3/Women-Jacket-PNG-High-Quality-Image.png",
+      img:"https://resource.logitech.com/content/dam/gaming/en/products/pro-x-keyboard/pro-x-keyboard-gallery-1.png",
+    },
+    {
+      id:9,
+      img:"https://www.pngmart.com/files/16/Black-Keyboard-PNG-Transparent-Image.png",
     },
   ]

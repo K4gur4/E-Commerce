@@ -34,14 +34,6 @@ position: relative;
     opacity: 1;
 }
 `
-
-// const Circle = styled.div`
-// width:200px;
-// height: 200px;
-// border-radius: 50%;
-// background-color: white;
-// position: absolute;
-// `
 const Image = styled.img`
 width: 95%;
 height: auto;
@@ -68,7 +60,6 @@ const Product=({item})=>{
     return (
         <Container>
             <Image src={item.img}/>
-            {/* <Circle/> */}
             <Info>
                 <Icon>
                     <ShoppingCartOutlinedIcon/>
