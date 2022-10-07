@@ -8,13 +8,13 @@ const jwt = require('jsonwebtoken')
         console.log(token);
         jwt.verify(token,process.env.JWT_KEY,(err,user)=>{
             if(err) {
-             res.status(403).json({message: "Token is invalid"})
+          return   res.status(403).json({message: "Token is invalid"})
             } 
             req.user= user
             next()
         })
     }
-     res.status(401).json({message: 'You are not Authenticated!!!'})
+   return  res.status(401).json({message: 'You are not Authenticated!!!'})
 }
 
 const verifyTokenAndAuth = (req,res,next)=>{ 
@@ -23,7 +23,7 @@ const verifyTokenAndAuth = (req,res,next)=>{
         if(req.user.id===req.params.id|| req.user.isAdmin){
             next()
         }
-         res.status(403).json({message:'You are not alowed to do that'})
+        return res.status(403).json({message:'You are not alowed to do that'})
     })
 }
 
