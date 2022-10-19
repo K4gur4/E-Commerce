@@ -11,10 +11,10 @@ const {
   getStatsUser
 } = require("../controller/userController");
 
-router.put("/:id", verifyTokenAndAuthorization, updateUser);
-router.get("/:id", verifyTokenAndAuthorization, getUser);
-router.delete("/:id",verifyTokenIsAdmin , deleteUser);
 router.get("/", verifyTokenIsAdmin, getAlluser);
+router.put("/:id", verifyTokenAndAuthorization, updateUser);
+router.get("/find/:id", verifyTokenAndAuthorization, getUser);
+router.delete("/:id",verifyTokenIsAdmin , deleteUser);
 router.get("/stat", verifyTokenIsAdmin, getStatsUser);
 
 

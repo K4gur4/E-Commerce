@@ -7,7 +7,7 @@ const productSchema= new momgoose.Schema(
         desc:{type:String,require:true},
         img:{type:String,require:true,},
         categories:{type:Array},
-        color:{type:String},
+        color:{type:Array},
         price:{type:Number,require:true},
     },{
         timestamps:true
