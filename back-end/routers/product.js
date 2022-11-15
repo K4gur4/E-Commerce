@@ -8,13 +8,12 @@ const {
   deleteProduct,
   getProduct,
   getAllProduct,
-  createProduct
+  createProduct,
 } = require("../controller/productController");
 router.post("/", verifyTokenIsAdmin, createProduct);
-router.get("/", verifyTokenIsAdmin, getAllProduct);
+router.get("/", getAllProduct);
 router.put("/:id", verifyTokenAndAuthorization, updateProduct);
-router.get("/find/:id", verifyTokenAndAuthorization, getProduct);
-router.delete("/:id",verifyTokenIsAdmin , deleteProduct);
-
+router.get("/find/:id", getProduct);
+router.delete("/:id", verifyTokenIsAdmin, deleteProduct);
 
 module.exports = router;

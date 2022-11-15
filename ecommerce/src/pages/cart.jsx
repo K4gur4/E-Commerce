@@ -5,6 +5,7 @@ import Navbar from "../components/navbar"
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import { mobile } from "../responsive";
+import { useSelector } from "react-redux";
 
 const Container =styled.div``
 const Wrapper =styled.div`
@@ -79,13 +80,14 @@ const ProductName = styled.span``
 const ProductId = styled.span``
 
 const ProductColor = styled.div`
-width: 20px;
-height: 20px;
-border: 1px solid black ;
-background-color: ${props=>props.color};
+border: 2px solid teal;
+padding: 10px;
+max-width: fit-content;
+border-radius: 10%;
+margin: 0px 5px;
+cursor: pointer;
 `
 
-const ProductType = styled.div``
 
 const PriceDetail = styled.span`
 flex:1;
@@ -152,7 +154,7 @@ font-weight: 600;
 
 
 const Cart = ()=>{
-
+const cart = useSelector(state=>state.cart)
     return (
         <Container>
             <Navbar/>
@@ -170,63 +172,49 @@ const Cart = ()=>{
                 </Top>
                 <Bottom>
                 <Info>
-                    <Product>
+                    {
+                        cart.products.map((product)=>(
+                               <Product>
                         <ProductDetail>
-                            <Image src='https://cf.shopee.vn/file/1768abe581829520b366c75f612694e0'></Image>
+                            <Image src={product.img}></Image>
                             <Details>
-                                <ProductName> <b>Product:</b> Fuhlen D90S </ProductName>
-                                <ProductId> <b>ID:</b> 5345345 </ProductId>
-                                <ProductType> <b>Phân loại:</b>Chuột</ProductType>
-                                <ProductColor color="black"/> 
+                                <ProductName> <b>Product:</b> {product.title} </ProductName>
+                                <ProductId> <b>ID:</b> {product._id} </ProductId>
+                                <ProductColor >{product.color} </ProductColor> 
                             </Details>
                         </ProductDetail>
                         <PriceDetail>
                             <ProductAmountContainer>
                             <RemoveIcon/>
-                            <ProductAmount>1</ProductAmount>
+                            <ProductAmount>{product.quantity}</ProductAmount>
                             <AddIcon/>
                             </ProductAmountContainer>
 
-                            <ProductPrice>560.000đ</ProductPrice>
+                            <ProductPrice>{product.price*product.quantity} VND</ProductPrice>
                         </PriceDetail>
-                    </Product>
+                    </Product>  
+                        ))
+                    }
+               
                     <Hr/>
-                    <Product>
-                        <ProductDetail>
-                            <Image src='https://product.hstatic.net/1000026716/product/arctis52019-white-gearvn.jpg'></Image>
-                            <Details>
-                                <ProductName> <b>Product:</b> SteelSeries Arctis 5 2019 </ProductName>
-                                <ProductId> <b>ID:</b> 53124645 </ProductId>
-                                <ProductType> <b>Phân loại:</b>Tai nghe</ProductType>
-                                <ProductColor color="white"/> 
-                            </Details>
-                        </ProductDetail>
-                        <PriceDetail>
-                            <ProductAmountContainer>
-                            <RemoveIcon/>
-                            <ProductAmount>1</ProductAmount>
-                            <AddIcon/>
-                            </ProductAmountContainer>
-
-                            <ProductPrice>1.200.000đ</ProductPrice>
-                        </PriceDetail>
-                    </Product>
                 </Info>
                     <Summary>
                         <SummaryTitle>Tổng giỏ hàng</SummaryTitle>
                         <SummaryItem>
                         <SummaryItemText>Tổng giá sản phẩm</SummaryItemText>
-                        <SummaryItemPrice>1.800.000</SummaryItemPrice>
+                        <SummaryItemPrice>{cart.total} VND</SummaryItemPrice>
                         </SummaryItem>
 
                         <SummaryItem>
                         <SummaryItemText>Phí vận chuyển</SummaryItemText>
-                        <SummaryItemPrice>100.000</SummaryItemPrice>
+                        <SummaryItemPrice>{
+                            cart.total>1000000 ? 0 : cart.total/5 
+                            } VND</SummaryItemPrice>
                         </SummaryItem>
 
                         <SummaryItem>
                         <SummaryItemText>Hỗ trợ phí vận chuyển</SummaryItemText>
-                        <SummaryItemPrice>-80.000</SummaryItemPrice>
+                        <SummaryItemPrice></SummaryItemPrice>
                         </SummaryItem>
 
                         <SummaryItem type="total">

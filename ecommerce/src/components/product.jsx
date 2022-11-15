@@ -1,79 +1,97 @@
 import styled from "styled-components";
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import { Link } from "react-router-dom";
 
 const Info = styled.div`
-width: 100%;
-height: 100%;
-position: absolute;
-top: 0;
-left:0;
-background-color: rgba(0,0,0,0.2);
-opacity: 0;
-z-index:2;
-display: flex;
-align-items: center;
-justify-content: center;
-transition: all 0.5 ease;
-cursor: pointer;
-`
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  transition: all 0.5 ease;
+  cursor: pointer;
+`;
 
-const Container=styled.div`
-flex: 1;
-margin: 5px;
-min-width: 280px;
-height: 350px;
-display: flex;
-align-items: center;
-justify-content: center;
-background-color: #dcdcdc;
-position: relative;
-
-&:hover ${Info}{
+const Container = styled.div`
+  flex: 1 1 0;
+  margin: 5px;
+  min-width: 280px;
+  height: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  position: relative;
+  &:hover ${Info} {
     opacity: 1;
-}
-`
+  }
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+`;
 const Image = styled.img`
-width: 95%;
-height: auto;
-z-index: 2;
-`
+  height: 80%;
+
+  z-index: 2;
+`;
 const Icon = styled.div`
-    width: 40px;
-    height: 40px;   
-    border-radius : 50% ;
-    background-color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 10px;
-    transition: all 0.5 ease;
-    &:hover{
-        background-color: #ffffff;
-        transform: scale(1.1);
-    }
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+  transition: all 0.5 ease;
+  &:hover {
+    background-color: #ffffff;
+    transform: scale(1.1);
+  }
+`;
+const Title = styled.h3`
+  align-items: center;
+  color: white;
+  text-shadow: 2px 2px black;
+`;
+const IconContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
-`
+const Product = ({ product }) => {
+  console.log(product);
+  return (
+    <Container>
+      <Image src={product.img} alt={product.title} />
+      <Info>
+        <Title>{product.title}</Title>
+        <IconContainer>
+          <Icon>
+            <ShoppingCartOutlinedIcon />
+          </Icon>
+          <Icon>
+            <Link to={`/product/${product._id}`}>
 
-const Product=({item})=>{
-    return (
-        <Container>
-            <Image src={item.img}/>
-            <Info>
-                <Icon>
-                    <ShoppingCartOutlinedIcon/>
-                </Icon>
-                <Icon>
-                    <SearchOutlinedIcon/>
-                </Icon>
-                <Icon>
-                    <FavoriteBorderOutlinedIcon/>
-                </Icon>
-            </Info>
-        </Container>
+            <SearchOutlinedIcon />
+            </Link>
+          </Icon>
+          <Icon>
+            <FavoriteBorderOutlinedIcon />
+          </Icon>
+        </IconContainer>
+      </Info>
+    </Container>
+  );
+};
 
-    )
-}
-
-export default Product
+export default Product;

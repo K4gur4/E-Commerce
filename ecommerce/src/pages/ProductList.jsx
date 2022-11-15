@@ -1,3 +1,5 @@
+import { useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 import Announcement from '../components/announcement'
 import Footer from '../components/footer'
@@ -35,31 +37,32 @@ ${mobile({ margin: "10px 0px"})}
 const Option =styled.option``
 
 const ProductList = ()=>{
+const location = useLocation()
+const cat =location.pathname.split("/")[2]
+const [sort,setSort]= useState("newest")
 
+
+const handleSoft=(e)=>{
+    const value = e.target.value;
+    setSort(value)
+}
+
+console.log(sort);
 return (
     <Container>
         <Announcement/>
         <Navbar/>
-        <Title>Danh mục các sản phẩm</Title>
+        <Title>Danh mục sản phẩm  </Title>
         <FilterContainer>
-            <Filter>
-                <FilterText>Lọc Sản Phẩm:</FilterText>
-                <Select>
-                    <Option selected>Tất cả</Option>
-                    <Option>Chuột</Option>
-                    <Option>Bàn Phím</Option>
-                    <Option>Tai Nghe</Option>
-                </Select>
-                </Filter>
             <Filter><FilterText>Sắp xếp theo:</FilterText>
-            <Select>
-                    <Option selected>Mới cập nhật</Option>
-                    <Option>Giá cao nhất</Option>
-                    <Option>Giá thấp nhất</Option>
+            <Select onChange={handleSoft}>
+                    <Option selected value="newest" >Mới cập nhật</Option>
+                    <Option value="asc">Giá cao nhất</Option>
+                    <Option value="desc">Giá thấp nhất</Option>
                 </Select>
                     </Filter>
         </FilterContainer>
-        <Products/>
+        <Products cat={cat} sort={sort}/>
         <Newsletter/>
         <Footer/>
     </Container>

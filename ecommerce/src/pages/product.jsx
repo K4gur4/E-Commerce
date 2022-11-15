@@ -6,6 +6,12 @@ import Newsletter from "../components/newsletter";
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import { mobile } from "../responsive";
+import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { publicRequest } from "../resquestMethods";
+import { addProduct } from "../redux/cartRedux";
+import { useDispatch } from "react-redux";
 
 const Container = styled.div``;
 
@@ -66,10 +72,10 @@ font-weight: 200;
 `
 
 const FilterColor = styled.div`
-width: 20px;
-height: 20px;
-background-color: ${props=>props.color};
-border: 2px solid black;
+border: 2px solid teal;
+max-width: fit-content;
+padding: 10px;
+border-radius: 10%;
 margin: 0px 5px;
 cursor: pointer;
 `
@@ -112,37 +118,71 @@ font-weight: 500;
 `
 
 const Product = () => {
+  const location = useLocation()
+  const id =location.pathname.split("/")[2]
+  const [product,setProduct]=useState({})
+  const [quantity,setQuantity]=useState(1)
+  const [color, setColor] = useState("");
+  const dispatch= useDispatch()
+  useEffect(()=>{
+    const getProduct = async ()=>{
+      try {
+        const res= await publicRequest.get("/product/find/"+id)
+        setProduct(res.data)
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+    getProduct()
+  },[id])
+  const handleQuantity = (type) => {
+    if (type === "dec") {
+      quantity > 1 && setQuantity(quantity - 1);
+    } else {
+      setQuantity(quantity + 1);
+    }
+  };
+
+  const handleClick = ()=>{
+    dispatch(
+       addProduct({
+      ...product,quantity,color
+    })
+    )
+   
+  }
   return (
     <Container>
       <Navbar />
       <Announcement />
       <Wrapper>
         <ImgContainer>
-          <Image src='https://cf.shopee.vn/file/1768abe581829520b366c75f612694e0' />
+          <Image src={product.img} alt={product.title} />
         </ImgContainer>
         <InfoContainer>
-          <Title>FUHLEN D90S</Title>
+          <Title>{product.title}</Title>
           <Desc>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quaerat,
-            doloremque? Recusandae voluptas inventore ipsum, aliquid molestias
-            eius quod fugiat ratione sed veniam quidem, consectetur, corrupti
-            qui? Recusandae ad maiores quis.
+           {product.desc}
           </Desc>
-          <Price>1.990.000</Price>
+          <Price>{product.price+" VND"}</Price>
           <FilterContainer>
                 <Filter>
                     <FilterTitle>Màu sắc:</FilterTitle>
-                    <FilterColor color='black'></FilterColor>
-                    <FilterColor color='white'></FilterColor>
+                    {
+                    product.color?.map((c)=>(
+                      <FilterColor key={c} onClick={() => setColor(c)} >{c}</FilterColor>
+                    ))
+                    }
+
                 </Filter>
           </FilterContainer>
           <AddContainer>
                 <AmountContainer>
-                    <RemoveIcon></RemoveIcon>
-                    <Amount>1</Amount>
-                    <AddIcon></AddIcon>
+                    <RemoveIcon onClick={() => handleQuantity("dec")}/>
+                    <Amount>{quantity}</Amount>
+                    <AddIcon onClick={() => handleQuantity("inc")} />
                 </AmountContainer>
-                <Button>Thêm vào giỏ hàng</Button>
+                <Button onClick={()=>{handleClick()}} >Thêm vào giỏ hàng</Button>
           </AddContainer>
         </InfoContainer>
       </Wrapper>

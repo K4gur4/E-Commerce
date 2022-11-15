@@ -38,11 +38,10 @@ const deleteProduct = async (req, res) => {
 
 const getProduct = async (req, res) => {
   try {
-    const getProduct = await Product.findById(req.params.id);
-    const { password, ...others } = getUser._doc;
-    res.status(200).json(getProduct);
+    const product = await Product.findById(req.params.id);
+    res.status(200).json(product);
   } catch (error) {
-    res.status(500).json(error);
+    res.status(500).json(error.message);
   }
 };
 
@@ -52,9 +51,8 @@ const getAllProduct = async (req, res) => {
   try {
     let products;
     if (qNew) {
-      products = await Product.find.sort({ createAt: -1 }).limit(1);
-    }
-    else if (qCategory) {
+      products = await Product.find().sort({ createAt: -1 }).limit(8);
+    } else if (qCategory) {
       products = await Product.find({
         categories: {
           $in: [qCategory],
@@ -66,7 +64,7 @@ const getAllProduct = async (req, res) => {
 
     res.status(200).json(products);
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json(err.message);
   }
 };
 
