@@ -78,6 +78,11 @@ padding: 10px;
 border-radius: 10%;
 margin: 0px 5px;
 cursor: pointer;
+
+&:hover,:active{
+    background-color: black ;
+    color: white;
+}
 `
 
 const AddContainer = styled.div`
@@ -86,7 +91,6 @@ align-items: center;
 width: 50%;
 justify-content: space-between;
 ${mobile({ width: "100%"})}
-
 `
 
 const AmountContainer = styled.div`
@@ -135,6 +139,8 @@ const Product = () => {
     }
     getProduct()
   },[id])
+
+
   const handleQuantity = (type) => {
     if (type === "dec") {
       quantity > 1 && setQuantity(quantity - 1);
@@ -144,11 +150,16 @@ const Product = () => {
   };
 
   const handleClick = ()=>{
-    dispatch(
+    if (!color){
+      alert("Hãy chọn màu sắc cho sản phẩm")
+    }
+    else{
+      dispatch(
        addProduct({
       ...product,quantity,color
     })
     )
+    } 
    
   }
   return (
@@ -164,7 +175,7 @@ const Product = () => {
           <Desc>
            {product.desc}
           </Desc>
-          <Price>{product.price+" VND"}</Price>
+          <Price>{product.price?.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</Price>
           <FilterContainer>
                 <Filter>
                     <FilterTitle>Màu sắc:</FilterTitle>

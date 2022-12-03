@@ -42,13 +42,13 @@ const Button = styled.button`
 const CategoryItem = ({ item }) => {
   return (
     <Container>
-      <Link to={`/products/${item.cat}`}>
         <Image src={item.img} />
         <Info>
           <Title>{item.title}</Title>
+      <Link to={`/products/${item.cat}`}>
           <Button>KHÁM PHÁ</Button>
-        </Info>
       </Link>
+        </Info>
     </Container>
   );
 };

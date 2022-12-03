@@ -11,10 +11,10 @@ const {
   createOrder,
   monthlyIncome
 } = require("../controller/orderController");
-router.post("/", verifyTokenIsAdmin, createOrder);
+router.post("/", verifyTokenAndAuthorization, createOrder);
 router.get("/", verifyTokenIsAdmin, getAllOrder);
 router.put("/:id", verifyTokenAndAuthorization, updateOrder);
-router.get("/find/:id", verifyTokenAndAuthorization, getUserOrder);
+router.get("/find/:userId", verifyTokenAndAuthorization, getUserOrder);
 router.delete("/:id",verifyTokenIsAdmin , deleteOrder);
 router.get("/income",verifyTokenIsAdmin,monthlyIncome)
 

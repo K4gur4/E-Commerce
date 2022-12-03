@@ -5,7 +5,9 @@ const verifyToken = (req, res, next) => {
   if (authHeader) {
     const token = authHeader.split(" ")[1];
     jwt.verify(token, process.env.JWT_KEY, (err, user) => {
-      if (err) res.status(403).json("Token is not valid!");
+      if (err) {
+        console.log(err.message);
+        res.status(403).json("Token is not valid!")};
       req.user = user;
       next();
     });
@@ -16,9 +18,10 @@ const verifyToken = (req, res, next) => {
 
 const verifyTokenAndAuthorization = (req, res, next) => {
   verifyToken(req, res, () => {
-    if (req.user.id === req.params.id || req.user.isAdmin) {
+    if (req.user._id === req.params._id || req.user.isAdmin) {
       next();
     } else {
+      console.log("verifyTokenAndAuthorization");
       res.status(403).json("You are not alowed to do that!");
     }
   });

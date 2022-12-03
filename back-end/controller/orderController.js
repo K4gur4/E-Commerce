@@ -7,7 +7,8 @@ const createOrder = async (req, res) => {
     const newOrder = await Order.create(reqOrder);
     res.status(201).json({ newOrder: newOrder });
   } catch (err) {
-    res.status(500).json(err);
+    console.log(err.message);
+    res.status(500).json(err.message);
   }
 };
 
@@ -54,7 +55,6 @@ const getAllOrder = async (req, res) => {
       }
 };
 
-//Get Monthly Income
 
 const monthlyIncome= async(req,res)=>{
     const date = new Date();

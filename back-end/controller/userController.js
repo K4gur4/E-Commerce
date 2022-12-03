@@ -50,12 +50,11 @@ const getAlluser = async (req, res) => {
       : await User.find();
     res.status(200).json(users);
   } catch (error) {
-    res.status(500).json(error);
+    res.status(500).json(error.message);
   }
 };
 
 const getStatsUser = async (req, res) => {
-  console.log("hiiiiii");
   const date = new Date();
   const lastYear = new Date(date.setFullYear(date.getFullYear() - 1));
 
