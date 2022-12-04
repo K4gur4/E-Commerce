@@ -7,8 +7,6 @@ const Container=styled.div`
     padding: 20px;
     display:flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-
 `
 
 const Products=({cat,sort})=>{
@@ -22,9 +20,9 @@ useEffect(()=>{
     try {
         const res= await axios.get(
             cat?
-            URL+`?category=${cat}`
+            URL+`?category=${cat}&new=true`
             :
-            URL+"?new=true"
+            URL+`?new=true`
             
         )
         setProduct(res.data)
@@ -37,14 +35,11 @@ useEffect(()=>{
 
 useEffect(() => {
     switch (sort) {
-        case "newest":
-            setFilteredProduct(product.sort((a, b) => a.createdAt - b.createdAt))
-            break;
         case "asc":
-            setFilteredProduct(product.sort((a, b) => a.price - b.price))
+            setFilteredProduct((prev)=>[...prev].sort((a, b) => a.price - b.price))
             break
         case "desc":
-            setFilteredProduct(product.sort((a, b) => b.price - a.price))
+            setFilteredProduct((prev)=>[...prev].sort((a, b) => b.price - a.price))
             break
         default:
             setFilteredProduct(product)
@@ -52,13 +47,11 @@ useEffect(() => {
     }
   }, [product,sort]);
 
-const b=filteredProduct.map((item)=>item.price)
-console.log(b);
     return (
         <Container>
             {
             cat?
-            product.map((item)=>(
+            filteredProduct.map((item)=>(
                 <Product product={item} key={item.id}/>
             ))
                 : filteredProduct.splice(0,8).map((item)=>(

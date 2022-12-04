@@ -1,9 +1,11 @@
-import styled from "styled-components";
+import styled,{keyframes} from "styled-components";
 import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRightOutlined";
 import KeyboardArrowLeftOutlinedIcon from "@mui/icons-material/KeyboardArrowLeftOutlined";
-import { useState } from "react";
-import { itemSlide } from "../data";
+import { useEffect, useState } from "react";
 import {mobile} from '../responsive'
+import { useHistory } from "react-router-dom";
+import axios from "axios";
+
 const Container = styled.div`
   width: 100%;
   height: 100vh;
@@ -13,7 +15,6 @@ const Container = styled.div`
   overflow: hidden;
   ${mobile({ display: "none" })}
 `;
-
 const Wrapper = styled.div`
   height: 100%;
   display: flex;
@@ -40,13 +41,12 @@ const InfoContainer = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 70px;
+  font-size: 50px;
 `;
-const Discription = styled.p`
-  margin: 50px 0px;
-  font-size: 20px;
-  font-weight: 500;
-`;
+const Desc= styled.p`
+  font-size: 30px;
+  padding: 20px 0px;
+`
 const Button = styled.button`
   padding: 10px;
   font-size: 20px;
@@ -74,31 +74,53 @@ const Arrow = styled.div`
 `;
 
 const Slider = () => {
+const history=useHistory()
   const [slideIndex, setSlideIndex] = useState(0);
+  const [newPro,setNewPro]=useState([])
+  useEffect(()=>{
+    const URL="http://localhost:5000/product/"
+   const getProduct = async ()=>{
+    try {
+        const res= await axios.get(
+            URL+`?new=true`
+        )
+        setNewPro(res.data)
+    } catch (error) {
+        console.log(error);
+    }
+   } 
+   getProduct();
+  }
+  ,[])
 
+console.log(newPro);
   const handleClick = (direction) => {
     if (direction === "left") {
-      setSlideIndex(slideIndex > 0 ? slideIndex - 1 : 3);
+      setSlideIndex(slideIndex > 0 ? slideIndex - 1 : 2);
     } else {
-      setSlideIndex(slideIndex < 3 ? slideIndex + 1 : 0);
+      setSlideIndex(slideIndex < 2 ? slideIndex + 1 : 0);
     }
   };
 
+  const handleCheck= (url)=>{
+    const productURl=`/product/${url}`
+    history.push(productURl)
+  }
   return (
     <Container>
       <Arrow direction="left" onClick={() => handleClick("left")}>
         <KeyboardArrowLeftOutlinedIcon />
       </Arrow>
       <Wrapper slideIndex={slideIndex}>
-        {itemSlide.map((item) => (
-          <Slide key={item.id}>
+        {newPro?.map((item) => (
+          <Slide key={item._id}>
             <ImgContainer>
               <Image src={item.img} />
             </ImgContainer>
             <InfoContainer>
-              <Title>{item.title} </Title>
-              <Discription>{item.desc}</Discription>
-              <Button>ĐẶT HÀNG NGAY</Button>
+              <Title>NEW ARRIVALS: {item.title} </Title>
+              <Desc>Sản phẩm mới cập bến 7DECMBER.</Desc>
+              <Button  onClick={()=>{handleCheck(item._id)}}>ĐẶT HÀNG NGAY</Button>
             </InfoContainer>
           </Slide>
         ))}

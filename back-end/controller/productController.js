@@ -50,18 +50,25 @@ const getAllProduct = async (req, res) => {
   const qCategory = req.query.category;
   try {
     let products;
-    if (qNew) {
-      products = await Product.find().sort({ createAt: -1 }).limit(8);
+    if(qNew&&qCategory){
+      products = await Product.find({
+        categories: {
+          $in: [qCategory]
+        },
+      }).sort({ createdAt: -1 })
+      console.log("1");
+    }
+    else if (qNew) {
+      products = await Product.find().sort({ createdAt: -1 }).limit(9);
+      console.log("2");
     } else if (qCategory) {
       products = await Product.find({
         categories: {
           $in: [qCategory],
         },
       });
-    } else {
-      products = await Product.find();
-    }
-
+      console.log("3");
+    } 
     res.status(200).json(products);
   } catch (err) {
     res.status(500).json(err.message);

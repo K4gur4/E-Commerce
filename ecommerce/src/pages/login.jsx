@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import Navbar from "../components/navbar";
 import { login } from "../redux/apiCalls";
 import { mobile } from "../responsive";
 
@@ -74,7 +75,9 @@ const Login = () => {
     login(dispatch, { username, password });
   };
   return (
-    <Container>
+    <>
+     <Navbar/>
+ <Container>
       <Wrapper>
         <Title>Chào mừng bạn đến với 7DECEMBER.</Title>
         <Form>
@@ -104,6 +107,9 @@ const Login = () => {
         </Form>
       </Wrapper>
     </Container>
+
+    </>
+   
   );
 };
 

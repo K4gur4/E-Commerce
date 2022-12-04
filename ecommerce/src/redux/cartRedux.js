@@ -18,7 +18,7 @@ const cartSlice = createSlice({
     deleteProduct: (state, action) => {
         state.quantity -=1
       const newCart= state.products
-      const objIndex= newCart.findIndex((obj)=>obj._id==action.payload._id)
+      const objIndex= newCart.findIndex((obj)=>obj._id===action.payload._id)
       newCart.splice(objIndex,1)
       state.products=[...newCart]
       state.total -= action.payload.price * action.payload.quantity;

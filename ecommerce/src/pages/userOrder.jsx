@@ -10,80 +10,114 @@ import axios from "axios";
 
 const Container = styled.div``;
 const Wrapper = styled.div`
-display: flex;
-  padding: 20px;
+  display: flex;
+  padding: 10px;
   border: 1px solid gray;
-  margin: 2px;
+  margin: 10px 10px;
   justify-content: space-between;
+  background: gray;
 `;
 const Title = styled.h1`
   font-weight: 300;
   text-align: center;
 `;
 
-const User =styled.p`
-`
-const Address= styled.p``
+const User = styled.p`
+  font-size: 15px;
+  color: white;
+`;
+const Address = styled.p`
+  font-size: 15px;
+  color: white;
+`;
 
 const ProductInfor = styled.div`
-display: flex;
-flex-direction: column;
-font-size: smaller;
-`
-const ProductName= styled.div``
-const Total= styled.div``
-const Status= styled.div`
-border: 1px solid blue;
-padding: 3px;
+  display: flex;
+  flex-direction: column;
+  font-size: smaller;
+`;
+const ProductName = styled.div``;
+const Total = styled.div`
+  color: white;
+`;
+const Status = styled.div`
+  border: 1px solid;
+  width: fit-content;
+  padding: 5px;
+  border-radius: 10px;
+  color: white;
+  background: ${(props) =>
+    props.value === "Đã xác nhận"
+      ? "teal"
+      : props.value === "Đã giao"
+      ? "green"
+      : props.value === "Đã hủy"
+      ? "red"
+      : "teal"};
+`;
+const Left = styled.div``;
+const Right = styled.div`
+  width: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
 
-`
+const Center = styled.div``
+const UserOrder = () => {
+  const user = useSelector((state) => state.user.currentUser);
+  const [orders, setOrder] = useState();
+  useEffect(() => {
+    const URL = "http://localhost:5000/order/find/";
+    const getOrders = async () => {
+      try {
+        const res = await axios.get(URL + `${user.dataLogin._id}`, {
+          headers: { token: `Bearer ${user.accsessToken}` },
+        });
+        setOrder(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getOrders();
+  }, []);
 
+  console.log("order", orders);
+  return (
+    <Container>
+      <Navbar />
+      <Announcement />
+      <Title>Đơn hàng của bạn</Title>
+      {orders?.map((item) => (
+        <Wrapper>
+          <Left>
+            <User>Người nhận: {item.name}</User>
+            <Address>
+              Địa chỉ: {item.address} - {item.city}
+            </Address>
+            <Address>SĐT: +84 {item.phone}</Address>
+          </Left>
+          <Center>
+  
+          </Center>
+          <Right>
+            <Total>
+              {
+                item.total.toLocaleString("it-IT", {
+                  style: "currency",
+                  currency: "VND",
+                })}
+            </Total>
+            <Status value={item.status}>{item.status}</Status>
+          </Right>
 
-const UserOrder = ()=>{
-    const user=useSelector(state=>state.user.currentUser)
-const [orders,setOrder]= useState()
-useEffect(()=>{
-  const URL="http://localhost:5000/order/find/"
-const getOrders= async ()=>{
-try {
-  const res = await axios.get(
-    URL+`${user.dataLogin._id}`,{headers:{'token':`Bearer ${user.accsessToken}`}}
-  )
-  setOrder(res.data)
-} catch (error) {
-  console.log(error);
-}
-}
-getOrders()
-},[])
+         
+        </Wrapper>
+      ))}
 
-console.log("order",orders);
-    return(
-        <Container>
-        <Navbar/>
-        <Announcement/>
-            <Title>Đơn hàng</Title>
-            {orders?.map((item)=>(
-            <Wrapper>
-              <User>Người nhận: {item.name}</User>
-              <Address>Địa chỉ:{item.address}</Address>
-              {/* {
-                item.products?.map((product)=>(
-                  <ProductInfor>
-                      <ProductName>{product.title}X{product.quantity}={product.price*product.quantity}</ProductName>
-              </ProductInfor>
-                ))
-              } */}
-              <Total> Tổng cộng {item.total.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</Total>
-              <Status>{item.status}</Status>
-            </Wrapper>
-            ))}
+      <Footer />
+    </Container>
+  );
+};
 
-            <Footer/>
-        </Container>
-
-)
-
-}
-
-export default UserOrder
+export default UserOrder;

@@ -17,7 +17,7 @@ ${mobile({ fontSize: "10px"})}
 const Announcement = ()=>{
     return (
         <Container>
-            SIÊU HỜI!! MIÊN PHÍ VẬN CHUYỂN ĐỐI VỚI HÓA ĐƠN TRÊN MỘT TRIỆU ĐỒNG
+            SIÊU HỜI!! MIÊN PHÍ VẬN CHUYỂN ĐỐI VỚI HÓA ĐƠN TRÊN 500.000 VND
         </Container>
     )
 }

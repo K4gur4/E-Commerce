@@ -5,6 +5,7 @@ import { mobile } from "../responsive";
 import { useDispatch, useSelector } from "react-redux";
 import { register } from "../redux/apiCalls";
 import { useHistory } from "react-router-dom";
+import Navbar from "../components/navbar";
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
@@ -124,16 +125,17 @@ const history=useHistory()
     setFocused(true);
   };
   const handleClick = (e) => {
-   
     e.preventDefault();
     register(dispatch,{...other})
     alert("đăng ký thành công, hãy đăng nhập")
     const path="/login"
     history.push(path)
-
   };
   return (
+    <>
+    <Navbar/>
     <Container>
+      
       <Wrapper>
         <Title>Trở thành thành viên tại 7DECEMBER.</Title>
         <Form onSubmit={handleClick}>
@@ -145,7 +147,7 @@ const history=useHistory()
                 name={e.name}
                 type={e.type}
                 onChange={onChange}
-                required={true}
+                required
 
                 onBlur={handleFocus}
                 onFocus={() =>
@@ -160,6 +162,8 @@ const history=useHistory()
         </Form>
       </Wrapper>
     </Container>
+    </>
+    
   );
 };
 

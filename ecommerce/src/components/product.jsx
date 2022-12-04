@@ -26,7 +26,7 @@ const Info = styled.div`
 const Container = styled.div`
   flex: 1 1 0;
   margin: 5px;
-  min-width: 280px;
+  max-width: 350px;
   height: 350px;
   display: flex;
   align-items: center;
@@ -70,17 +70,7 @@ const IconContainer = styled.div`
 `;
 
 const Product = ({ product }) => {
-  const quantity=1;
-  const color=product.color[0];
-  const dispatch= useDispatch()
-  const handleCart= ()=>{
-    dispatch(
-      addProduct({
-     ...product,quantity,color
-   })
-   )
-  
-  }
+ 
   return (
     <Container>
       <Image src={product.img} alt={product.title} />

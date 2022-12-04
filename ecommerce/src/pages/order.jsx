@@ -116,19 +116,22 @@ const Order = () => {
   const [name, setName] = useState(null);
   const [address, setAddress] = useState(null);
   const [phone, setPhone] = useState(null);
+  const [city,setCity]= useState (null)
+  const [payMent,setPayment]= useState(null)
   const history=useHistory()
   const handleOrder = () => {
-    if(!name||!address||!phone){
+    if(!name||!address||!phone||!city||!payMent){
       alert("Hãy điền đủ thông tin trước khi thanh toán!!")
     }
     else{
-      createOrder(dispatch, { userId, products, total, name, address, phone });
+    createOrder(dispatch, { userId, products, total, name, address,city, phone,payMent });
+    alert('Đơn hàng đã được tạo, hãy kiểm tra giỏ hàng, cảm ơn bạn đã lựa chọn 7DECEMBER')
     setTotal(0)
     const path="/"
     history.push(path) 
     }
-   
   };
+  console.log("payment",payMent);
   return (
     <Container>
       <Navbar />
@@ -151,22 +154,27 @@ const Order = () => {
               required={true}
               onChange={(e) => setAddress(e.target.value)}
             />
-            <InputTitle>Số điện thoại</InputTitle>
+            <InputTitle>Thành phố</InputTitle>
             <Input
-              type={"number"}
+              type={"text"}
               required={true}
+              onChange={(e) => setCity(e.target.value)}
+            />
+            <InputTitle>Số điện thoại (+84)</InputTitle>
+            <Input
+
+              type="tel"
+              required
+              maxLength={"9"}
               onChange={(e) => setPhone(e.target.value)}
             />
-          
-  
           </Left>
           <Right>
-            {" "}
             <Center>
               <Title2>Sản phẩm đã chọn</Title2>
               <Info>
                 {cart.map((product) => (
-                  <Product>
+                  <Product key={product._id}>
                     <ProductDetail>
                       <Details>
                         <ProductName>
@@ -187,11 +195,11 @@ const Order = () => {
             <WrapperPay>
               <Title2>Tổng cộng</Title2>
               <h1>{total.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</h1>
-              <Select>
-                <Option value={"0"} disabled defaultValue>
+              <Select onChange={((e)=>{setPayment(e.target.value)})}>
+                <Option value={"1"} disabled selected >
                   Phương thức thanh toán
                 </Option>
-                <Option value={"1"}>Thanh toán khi nhận hàng</Option>
+                <Option value={"COD"}>Thanh toán khi nhận hàng</Option>
               </Select>
               <SummaryButton onClick={handleOrder}>Thanh toán</SummaryButton>
             </WrapperPay>

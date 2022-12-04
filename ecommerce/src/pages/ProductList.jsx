@@ -57,8 +57,8 @@ return (
             <Filter><FilterText>Sắp xếp theo:</FilterText>
             <Select onChange={handleSoft}>
                     <Option selected value="newest" >Mới cập nhật</Option>
-                    <Option value="asc">Giá cao nhất</Option>
-                    <Option value="desc">Giá thấp nhất</Option>
+                    <Option value="asc">Giá thấp nhất</Option>
+                    <Option value="desc">Giá cao nhất</Option>
                 </Select>
                     </Filter>
         </FilterContainer>

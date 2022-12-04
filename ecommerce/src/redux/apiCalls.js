@@ -1,4 +1,5 @@
-import {loginStart,loginFailure, loginSuccess,resStart,resSuccess,resFailure} from "./userRedux"
+import {loginStart,loginFailure, loginSuccess,resStart,resSuccess,resFailure,changeStart,changeFailure,changeSuccess
+} from "./userRedux"
 import {publicRequest,orderRequest} from "../resquestMethods"
 import { orderStart,orderSuccess,orderFailure } from "./orderRedux";
 import { clearCart } from "./cartRedux";
@@ -25,8 +26,20 @@ export const register = async (dispatch,user)=>{
     }
 }
 
-export const createCart=async (dispatch,cart)=>{
+export const changePass = async (dispatch,id,pass)=>{
+    dispatch(changeStart());
+    try {
+        const res= await publicRequest.put(`/user/${id}`,pass,{headers:{
+            'token':`Bearer ${TOKEN}`
+        }})
+        dispatch(changeSuccess(res.data))
+    } catch (error) {
+        alert(error.message)
+        dispatch(changeFailure())
+    }
+}
 
+export const createCart=async (dispatch,cart)=>{
 
 }
 
@@ -37,7 +50,6 @@ export const createOrder = async (dispatch,order)=>{
             'token':`Bearer ${TOKEN}`
         }})
         dispatch(orderSuccess(res.data))
-        alert('Đơn hàng đã được tạo, hãy kiểm tra giỏ hàng, cảm ơn bạn đã lựa chọn 7DECEMBER')
         dispatch(clearCart())
     } catch (error) {
         dispatch(orderFailure())

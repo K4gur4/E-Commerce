@@ -170,7 +170,6 @@ const Cart = () => {
   const handleDel = (item) => {
     dispatch(deleteProduct(item));
   };
-  console.log("product",cart.products.length);
   return (
     <Container>
       <Navbar />
@@ -224,7 +223,7 @@ const Cart = () => {
               <SummaryItem>
                 <SummaryItemText>Phí vận chuyển</SummaryItemText>
                 <SummaryItemPrice>
-                  {cart.total > 1000000 ? 0 : cart.total.toLocaleString('it-IT', {style : 'currency', currency : 'VND'}) / 5} VND
+                  {(cart.total > 1000000 ? 0 : cart.total / 5).toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}
                 </SummaryItemPrice>
               </SummaryItem>
 
@@ -236,7 +235,7 @@ const Cart = () => {
               <SummaryItem type="total">
                 <SummaryItemText>Tổng Cộng</SummaryItemText>
                 <SummaryItemPrice>
-                  {cart.total.toLocaleString('it-IT', {style : 'currency', currency : 'VND'}) + (cart.total > 1000000 ? 0 : cart.total.toLocaleString('it-IT', {style : 'currency', currency : 'VND'}) / 5)}
+                  {(cart.total + (cart.total > 1000000 ? 0 : cart.total / 5)).toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}
                 </SummaryItemPrice>
               </SummaryItem>
                 <SummaryButton onClick={createOrder} disabled={user ? false : true}>
