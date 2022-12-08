@@ -181,7 +181,7 @@ const Product = () => {
                     <FilterTitle>Màu sắc:</FilterTitle>
                     {
                     product.color?.map((c)=>(
-                      <FilterColor key={c} onClick={() => setColor(c)} >{c}</FilterColor>
+                      <FilterColor key={product.color.indexOf(c)} onClick={() => setColor(c)} >{c}</FilterColor>
                     ))
                     }
 

@@ -8,15 +8,18 @@ import Slider from "../components/slider"
 import Newsletter from "../components/newsletter";
 import Footer from "../components/footer";
 import styled from "styled-components";
+import { mobile } from "../responsive";
 const Home = ()=>{
 
 const NewArrival = styled.p`
  font-size: 60px ;
  text-align: center;
  font-weight: bolder;
+ margin: 20px 0px;
+ ${mobile({ fontSize: "30px" })}
 `  
 return (
-    <div>
+    <>
         <Announcement/>
         <Navbar/>
         <Slider/>
@@ -25,7 +28,7 @@ return (
         <Products/>
         <Newsletter/>
         <Footer/>
-    </div>
+    </>
 )
 }
 

@@ -48,12 +48,12 @@ const Status = styled.div`
   color: white;
   background: ${(props) =>
     props.value === "Đã xác nhận"
-      ? "teal"
+      ? "#e5faf2"
       : props.value === "Đã giao"
-      ? "green"
+      ? "#e5faf2"
       : props.value === "Đã hủy"
-      ? "red"
-      : "teal"};
+      ? "#fff0f1"
+      : "#ebf1fe"};
 `;
 const Left = styled.div``;
 const Right = styled.div`
@@ -80,7 +80,7 @@ const UserOrder = () => {
       }
     };
     getOrders();
-  }, []);
+  }, [user.accsessToken,user.dataLogin._id]);
 
   console.log("order", orders);
   return (

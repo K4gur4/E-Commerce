@@ -55,7 +55,7 @@ const Info = styled.div`
 const Product = styled.div`
   display: flex;
   justify-content: space-between;
-  ${mobile({ flexDirection: "column" })}
+  ${mobile({ flexDirection: "column", width:"100%" })}
 `;
 const ProductDetail = styled.div`
   flex: 2;
