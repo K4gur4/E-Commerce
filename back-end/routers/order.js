@@ -9,12 +9,14 @@ const {
   getUserOrder,
   getAllOrder,
   createOrder,
-  monthlyIncome
+  monthlyIncome,
+  getOrder
 } = require("../controller/orderController");
 router.post("/", verifyTokenAndAuthorization, createOrder);
 router.get("/", verifyTokenIsAdmin, getAllOrder);
 router.put("/:id", verifyTokenAndAuthorization, updateOrder);
 router.get("/find/:userId", verifyTokenAndAuthorization, getUserOrder);
+router.get("/findOrder/:id", verifyTokenAndAuthorization, getOrder);
 router.delete("/:id",verifyTokenIsAdmin , deleteOrder);
 router.get("/income",verifyTokenIsAdmin,monthlyIncome)
 

@@ -28,39 +28,16 @@ export const SidebarListItem = styled.li`
   display: flex;
   border-radius: 10px;
   color: black;
-
-  &:active {
-    background-color: rgb(86, 89, 94);
-    color: white;
-  }
-
-  &:hover {
-    background-color: rgb(86, 89, 94);
-    color: white;
-
-    
-  }
-
-  .icon {
-      margin-right: 10px;
-    }
-`;
-
-export const SidebarListItemActive = styled.li`
-  padding: 5px;
-  cursor: pointer;
-  display: flex;
-  border-radius: 10px;
-  color: black;
-  background-color: rgb(86, 89, 94);
-  color: white;
-
   &:hover {
     background-color: rgb(86, 89, 94);
     color: white;
   }
-
   .icon {
     margin-right: 10px;
+  }
+  &.active {
+    background-color: rgb(86, 89, 94);
+    color: black;
+    color: white;
   }
 `;

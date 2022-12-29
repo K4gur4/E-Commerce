@@ -55,6 +55,6 @@ font-size: 10px;
 `
 
 export const User= styled.span`
-
+margin: 0px 10px;
 
 `

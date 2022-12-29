@@ -1,23 +1,74 @@
 import Sidebar from "./components/sidebar/Sidebar.jsx";
 import Topbar from "./components/topbar/Topbar.jsx";
 import styled from "styled-components";
-import Home from "./pages/home/home.jsx";
-const Container= styled.div`
-display: flex;
-margin-top: 10px;
-`
+import Home from "./pages/home.jsx";
+import UserList from "./pages/userList.jsx";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import User from "./pages/user.jsx";
+import NewUser from "./pages/newUser.jsx";
+import Products from "./pages/productsList.jsx";
+import Product from "./pages/product.jsx";
+import NewProduct from "./pages/newProduct.jsx";
+import Login from "./pages/login.jsx";
+import OrderList from "./pages/orderlist.jsx";
+import Order from "./pages/order.jsx";
 
+const Container = styled.div`
+  display: flex;
+  margin-top: 10px;
+`;
 
 function App() {
+  const admin = JSON.parse(
+    JSON.parse(localStorage.getItem("persist:root")).user
+  )?.currentUser?.dataLogin?.isAdmin;
   return (
-   <>
-   <Topbar/>
-   <Container>
-   <Sidebar/>
-   <Home/>
-   </Container>
-   </>
+    <BrowserRouter>
+        <Switch>
+        <Route exact path="/">
+        {admin ? <Redirect to="/home" /> : <Login />}
+          </Route>
+          { admin && (
+                <>
+            <Topbar />
+      <Container>
+        <Sidebar />
+          <Route path="/home">
+        {admin ? <Redirect to="/" /> :<Home /> }
+          </Route>
+          <Route path="/users">
+            <UserList />
+          </Route>
+          <Route path="/user/:id">
+            <User/>
+          </Route>
+          <Route path="/newUser">
+            <NewUser/>
+          </Route>
+          <Route path="/products">
+            <Products/>
+          </Route>
+          <Route path="/product/:id">
+            <Product/>
+          </Route>
+          <Route path="/newProduct">
+            <NewProduct/>
+          </Route>
+          <Route path="/orderList">
+            <OrderList/>
+          </Route>
+          <Route path="/order/:id">
+            <Order/>
+          </Route>
+      </Container>
+            </>
+          )
+          }
+          </Switch>
+
+    </BrowserRouter>
   );
+
 }
 
 export default App;

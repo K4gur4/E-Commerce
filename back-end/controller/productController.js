@@ -7,6 +7,7 @@ const createProduct = async (req, res) => {
     const newProduct = await Product.create(reqProduct);
     res.status(201).json({ newProduct: newProduct });
   } catch (err) {
+    console.log(err.message);
     res.status(500).json(err);
   }
 };
@@ -56,19 +57,22 @@ const getAllProduct = async (req, res) => {
           $in: [qCategory]
         },
       }).sort({ createdAt: -1 })
-      console.log("1");
+   
     }
     else if (qNew) {
       products = await Product.find().sort({ createdAt: -1 }).limit(9);
-      console.log("2");
+  
     } else if (qCategory) {
       products = await Product.find({
         categories: {
           $in: [qCategory],
         },
       });
-      console.log("3");
+   
     } 
+    else{
+      products = await Product.find()
+    }
     res.status(200).json(products);
   } catch (err) {
     res.status(500).json(err.message);

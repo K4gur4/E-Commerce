@@ -115,9 +115,8 @@ const Footer = () => {
         </List>
       </Center>
       <Right>
-        
-          <Title>Liên hệ</Title>
-        
+        <Title>Liên hệ</Title>
+
         <ConTactItem>
           <RoomIcon style={{ maginRight: "10px" }} />
           Thị Trấn Hùng Sơn, Đại Từ, Thái Nguyên

@@ -21,7 +21,7 @@ const updateOrder = async (req, res) => {
       },
       { new: true }
     );
-    console.log("update completed");
+    console.log("update order completed");
     res.status(200).json(data);
   } catch (err) {
     res.status(500).json(err);
@@ -55,19 +55,36 @@ const getAllOrder = async (req, res) => {
       }
 };
 
+const getOrder = async (req, res) => {
+  try {
+    const order = await Order.find({ _id: req.params.id });
+    console.log("get order by id");
+    res.status(200).json(order);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
 
 const monthlyIncome= async(req,res)=>{
+  const productId= req.query.pid
     const date = new Date();
     const lastMonth = new Date(date.setMonth(date.getMonth() - 1));
     const previousMonth = new Date(new Date().setMonth(lastMonth.getMonth() - 1));
   
     try {
       const income = await Order.aggregate([
-        { $match: { createdAt: { $gte: previousMonth } } },
+        {
+          $match: {
+            createdAt: { $gte: previousMonth }, 
+            status:"Đã giao",
+            ... (productId && {products:{$elemMatch:{productId}}})
+          },
+        },
         {
           $project: {
             month: { $month: "$createdAt" },
-            sales: "$amount",
+            sales: "$total",
           },
         },
         {
@@ -77,7 +94,7 @@ const monthlyIncome= async(req,res)=>{
           },
         },
       ]);
-      res.status(200).json(income);
+      res.status(200).json(income.sort((a, b) => a._id - b._id));
     } catch (err) {
       res.status(500).json(err);
     }
@@ -89,5 +106,6 @@ module.exports = {
   getUserOrder,
   getAllOrder,
   createOrder,
-  monthlyIncome
+  monthlyIncome,
+  getOrder
 };

@@ -68,7 +68,6 @@ const Button = styled.button`
 `;
 const Register = () => {
   const [focused, setFocused] = useState(false);
-  // const { isFetching, error } = useSelector((state) => state.user);
   const dispatch=useDispatch()
   const [values, setValues] = useState({
     username: "",
@@ -148,7 +147,6 @@ const history=useHistory()
                 type={e.type}
                 onChange={onChange}
                 required
-
                 onBlur={handleFocus}
                 onFocus={() =>
                 e.name === "confirmPassword" && setFocused(true)

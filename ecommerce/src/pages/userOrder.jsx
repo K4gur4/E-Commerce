@@ -16,6 +16,7 @@ const Wrapper = styled.div`
   margin: 10px 10px;
   justify-content: space-between;
   background: gray;
+  box-shadow: 0px 0px 15px -10px rgba(0,0,0,0.75) ;
 `;
 const Title = styled.h1`
   font-weight: 300;
@@ -95,7 +96,7 @@ const UserOrder = () => {
             <Address>
               Địa chỉ: {item.address} - {item.city}
             </Address>
-            <Address>SĐT: +84 {item.phone}</Address>
+            <Address>SĐT: {item.phone}</Address>
           </Left>
           <Center>
   

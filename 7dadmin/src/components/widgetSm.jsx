@@ -1,5 +1,10 @@
 import styled from "styled-components"
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import { useEffect, useState } from "react";
+import axios from 'axios'
+import { userRequest } from "../resquestMethods";
+import { Link } from "react-router-dom";
+
 
 const Container = styled.div`
     flex: 1;
@@ -53,45 +58,36 @@ color: #555;
 
 
 const WidgetSm =()=>{
+    const [users,setUsers]= useState([])
+  
+
+    useEffect(()=>{
+  const getUsers = async ()=>{
+        try {
+            const res= await userRequest.get("user/?new=true")
+            setUsers(res.data)
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+        getUsers()
+    },[])
     return (
         <Container>
-            <Title>Người dùng</Title>
+            <Title>Người dùng mới</Title>
             <WidgetList>
-                <WidgetListItem>
+                {users.map((user)=>(
+                   <WidgetListItem key={user._id}>
                     <WidgetUser>
-                        <WidgetUserName>Admin 1</WidgetUserName>
-                        <WidgetUserEmail>vuducthinhkmt@gmail.com</WidgetUserEmail>
+                        <WidgetUserName>{user.username}</WidgetUserName>
+                        <WidgetUserEmail>{user.email}</WidgetUserEmail>
                     </WidgetUser>
+                    <Link to={`/user/${user._id}`} style={{ textDecoration: "none" }}>
+
                     <Button> <VisibilityIcon/> Display </Button>
-                </WidgetListItem>
-                <WidgetListItem>
-                    <WidgetUser>
-                        <WidgetUserName>Admin 2</WidgetUserName>
-                        <WidgetUserEmail>vuducthinhkmt@gmail.com</WidgetUserEmail>
-                    </WidgetUser>
-                    <Button> <VisibilityIcon/> Display </Button>
-                </WidgetListItem>
-                <WidgetListItem>
-                    <WidgetUser>
-                        <WidgetUserName>Admin 3</WidgetUserName>
-                        <WidgetUserEmail>vuducthinhkmt@gmail.com</WidgetUserEmail>
-                    </WidgetUser>
-                    <Button> <VisibilityIcon/> Display </Button>
-                </WidgetListItem>
-                <WidgetListItem>
-                    <WidgetUser>
-                        <WidgetUserName>Admin 4</WidgetUserName>
-                        <WidgetUserEmail>vuducthinhkmt@gmail.com</WidgetUserEmail>
-                    </WidgetUser>
-                    <Button> <VisibilityIcon/> Display </Button>
-                </WidgetListItem>
-                <WidgetListItem>
-                    <WidgetUser>
-                        <WidgetUserName>Admin 5</WidgetUserName>
-                        <WidgetUserEmail>vuducthinhkmt@gmail.com</WidgetUserEmail>
-                    </WidgetUser>
-                    <Button> <VisibilityIcon className="icon"/> Display </Button>
-                </WidgetListItem>
+                    </Link>
+                </WidgetListItem> 
+                ))}
             </WidgetList>
         </Container>
     )

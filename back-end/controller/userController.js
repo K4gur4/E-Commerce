@@ -73,7 +73,7 @@ const getStatsUser = async (req, res) => {
         },
       },
     ]);
-    res.status(200).json(data)
+    res.status(200).json(data.sort((a, b) => a._id - b._id))
   } catch (err) {
     console.log(err);
     res.status(500).json(err.message);

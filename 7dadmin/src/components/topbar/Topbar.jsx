@@ -3,16 +3,25 @@ import { Container,TopLeft,TopbRight,TopbarWrapper, Logo,Icon, IconItem, User } 
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import LanguageIcon from '@mui/icons-material/Language';
 import SettingsIcon from '@mui/icons-material/Settings';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../redux/userRedux';
+import { useHistory } from 'react-router-dom';
 const Topbar= ()=>{
+    const dispatch= useDispatch()
+    const history= useHistory()
+    const logOut=()=>{
+        dispatch(logout());
+        history.push(`/`)
+    }
     return(
         <Container>
             <TopbarWrapper>
                 <TopLeft><Logo>7DECMBER. Admin</Logo></TopLeft>
                 <TopbRight>
                         <Icon>
-                            <User>Admin: admin2</User>
+                            <User onClick={logOut}>Đăng xuất</User>
                         </Icon>
-                        <Icon>
+                        {/* <Icon>
                             <NotificationsNoneIcon/>
                             <IconItem>2</IconItem>
                         </Icon>
@@ -22,7 +31,7 @@ const Topbar= ()=>{
                         </Icon>
                         <Icon>
                             <SettingsIcon/>
-                        </Icon>
+                        </Icon> */}
                 </TopbRight>
                 
             </TopbarWrapper>

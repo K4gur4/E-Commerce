@@ -124,14 +124,15 @@ const Order = () => {
       alert("Hãy điền đủ thông tin trước khi thanh toán!!")
     }
     else{
-    createOrder(dispatch, { userId, products, total, name, address,city, phone,payMent });
+    createOrder(dispatch, { userId, products, total, name, address,city, phone:`${phone}`,payMent });
     alert('Đơn hàng đã được tạo, hãy kiểm tra giỏ hàng, cảm ơn bạn đã lựa chọn 7DECEMBER')
     setTotal(0)
     const path="/"
     history.push(path) 
     }
   };
-  console.log("payment",payMent);
+console.log(products);
+
   return (
     <Container>
       <Navbar />
@@ -162,10 +163,9 @@ const Order = () => {
             />
             <InputTitle>Số điện thoại (+84)</InputTitle>
             <Input
-
+              required={true}
               type="tel"
-              required
-              maxLength={"9"}
+              maxLength={"10"}
               onChange={(e) => setPhone(e.target.value)}
             />
           </Left>

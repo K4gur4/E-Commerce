@@ -1,4 +1,6 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { userRequest } from "../resquestMethods";
 
 const Container = styled.div`
   flex: 2;
@@ -54,96 +56,59 @@ const WidgetLg = () => {
     return <WidgetTableButton type={type}>{type}</WidgetTableButton>;
   };
 
+  const [orders,setOrders]= useState([])
+   
+
+    useEffect(()=>{
+       const getOrders = async ()=>{
+        try {
+            const res= await userRequest.get("order/")
+            setOrders(res.data)
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+      getOrders()
+    },[])
+
+    const gettime =(time)=>{
+      const date = new Date(time)
+      return date.getDate()+'-'+ (date.getMonth()+1) + '-'+date.getFullYear()
+    }
   return (
     <Container>
       <Title>Đơn hàng gần nhất</Title>
       <WidgetTable>
-        <WidgetTableTr>
+        <thead>
+          <WidgetTableTr>
           <WidgetTableTh>Khách hàng</WidgetTableTh>
           <WidgetTableTh>Ngày tạo</WidgetTableTh>
           <WidgetTableTh>Tổng cộng</WidgetTableTh>
           <WidgetTableTh>Trạng thái</WidgetTableTh>
         </WidgetTableTr>
-        <WidgetTableTr>
+        </thead>
+        <tbody>
+          {
+            orders.map((order)=>(
+               <WidgetTableTr key={order._id}>
           <WidgetTableTd>
-            <WidgetTableName>Admin1</WidgetTableName>
+            <WidgetTableName>{order.name}</WidgetTableName>
           </WidgetTableTd>
           <WidgetTableTd>
-            <WidgetTableDate>7/12/2022</WidgetTableDate>
+            <WidgetTableDate>{gettime(order.createdAt)}</WidgetTableDate>
           </WidgetTableTd>
           <WidgetTableTd>
-            <WidgetTableAmount>7.000.000 VND</WidgetTableAmount>
-          </WidgetTableTd>
-          <WidgetTableTd>
-            <WidgetTableStatus>
-              <Button type="Đã xác nhận" />
-            </WidgetTableStatus>
-          </WidgetTableTd>
-        </WidgetTableTr>
-        <WidgetTableTr>
-          <WidgetTableTd>
-            <WidgetTableName>Admin2</WidgetTableName>
-          </WidgetTableTd>
-          <WidgetTableTd>
-            <WidgetTableDate>7/12/2022</WidgetTableDate>
-          </WidgetTableTd>
-          <WidgetTableTd>
-            <WidgetTableAmount>7.000.000 VND</WidgetTableAmount>
+            <WidgetTableAmount>{order.total.toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}</WidgetTableAmount>
           </WidgetTableTd>
           <WidgetTableTd>
             <WidgetTableStatus>
-              <Button type="Đã hủy" />
+              <Button type={order.status} />
             </WidgetTableStatus>
           </WidgetTableTd>
         </WidgetTableTr>
-        <WidgetTableTr>
-          <WidgetTableTd>
-            <WidgetTableName>Admin3</WidgetTableName>
-          </WidgetTableTd>
-          <WidgetTableTd>
-            <WidgetTableDate>7/12/2022</WidgetTableDate>
-          </WidgetTableTd>
-          <WidgetTableTd>
-            <WidgetTableAmount>7.000.000 VND</WidgetTableAmount>
-          </WidgetTableTd>
-          <WidgetTableTd>
-            <WidgetTableStatus>
-              <Button type="Đã giao" />
-            </WidgetTableStatus>
-          </WidgetTableTd>
-        </WidgetTableTr>
-        <WidgetTableTr>
-          <WidgetTableTd>
-            <WidgetTableName>Admin4</WidgetTableName>
-          </WidgetTableTd>
-          <WidgetTableTd>
-            <WidgetTableDate>7/12/2022</WidgetTableDate>
-          </WidgetTableTd>
-          <WidgetTableTd>
-            <WidgetTableAmount>7.000.000 VND</WidgetTableAmount>
-          </WidgetTableTd>
-          <WidgetTableTd>
-            <WidgetTableStatus>
-              <Button type="Chờ xác nhận" />
-            </WidgetTableStatus>
-          </WidgetTableTd>
-        </WidgetTableTr>
-        <WidgetTableTr>
-          <WidgetTableTd>
-            <WidgetTableName>Admin5</WidgetTableName>
-          </WidgetTableTd>
-          <WidgetTableTd>
-            <WidgetTableDate>7/12/2022</WidgetTableDate>
-          </WidgetTableTd>
-          <WidgetTableTd>
-            <WidgetTableAmount>7.000.000 VND</WidgetTableAmount>
-          </WidgetTableTd>
-          <WidgetTableTd>
-            <WidgetTableStatus>
-              <Button type="Đã giao" />
-            </WidgetTableStatus>
-          </WidgetTableTd>
-        </WidgetTableTr>
+            ))
+          }
+        </tbody>
       </WidgetTable>
     </Container>
   );

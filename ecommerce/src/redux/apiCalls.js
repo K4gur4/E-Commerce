@@ -49,6 +49,7 @@ export const createOrder = async (dispatch,order)=>{
         dispatch(orderSuccess(res.data))
         dispatch(clearCart())
     } catch (error) {
+        console.log(error.message);
         dispatch(orderFailure())
     }
 }

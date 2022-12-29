@@ -12,7 +12,7 @@ const verifyToken = (req, res, next) => {
       next();
     });
   } else {
-    return res.status(401).json("You are not authenticated!");
+     res.status(401).json("You are not authenticated!");
   }
 };
 
@@ -21,7 +21,6 @@ const verifyTokenAndAuthorization = (req, res, next) => {
     if (req.user._id === req.params._id || req.user.isAdmin) {
       next();
     } else {
-      console.log("verifyTokenAndAuthorization");
       res.status(403).json("You are not alowed to do that!");
     }
   });

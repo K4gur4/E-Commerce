@@ -1,59 +1,66 @@
-import React from 'react'
-import LineStyleIcon from '@mui/icons-material/LineStyle';
-import TimelineIcon from '@mui/icons-material/Timeline';
-import TrendingUpIcon from '@mui/icons-material/TrendingUp';
-import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
-import StorefrontIcon from '@mui/icons-material/Storefront';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-import BarChartIcon from '@mui/icons-material/BarChart';
-import { Container,SidebarWrapper,SidebarMenu,SidebarTitle,SidebarList,SidebarListItem,SidebarListItemActive } from './sidebar'
-const Sidebar= ()=>{
-return (
-   <Container>
-        <SidebarWrapper>
-            <SidebarMenu>
-                <SidebarTitle>Dashboard</SidebarTitle>
-                <SidebarList>
-                    <SidebarListItemActive >
-                        <LineStyleIcon className='icon'/>
-                        Trang chủ
-                    </SidebarListItemActive>
-                    <SidebarListItem>
-                        <TimelineIcon className='icon'/>
-                        Thống Kê
-                    </SidebarListItem>
-                    <SidebarListItem>
-                        <TrendingUpIcon className='icon'/>
-                        Doanh thu
-                    </SidebarListItem>
-                </SidebarList>
-            </SidebarMenu>
-            <SidebarMenu>
-                <SidebarTitle>Quick Menu</SidebarTitle>
-                <SidebarList>
-                    <SidebarListItem >
-                        <PersonOutlineIcon className='icon'/>
-                        Khách hàng
-                    </SidebarListItem>
-                    <SidebarListItem>
-                        <StorefrontIcon className='icon'/>
-                        Sản phẩm
-                    </SidebarListItem>
-                    <SidebarListItem>
-                        <AttachMoneyIcon className='icon'/>
-                        Đơn hàng
-                    </SidebarListItem>
-                    <SidebarListItem>
-                        <BarChartIcon className='icon'/>
-                        Báo cáo
-                    </SidebarListItem>
-                </SidebarList>
-            </SidebarMenu>
-        </SidebarWrapper>
-   </Container>
-)
+import React, { useState } from "react";
+import LineStyleIcon from "@mui/icons-material/LineStyle";
+import TimelineIcon from "@mui/icons-material/Timeline";
+import TrendingUpIcon from "@mui/icons-material/TrendingUp";
+import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import StorefrontIcon from "@mui/icons-material/Storefront";
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import BarChartIcon from "@mui/icons-material/BarChart";
+import {
+  Container,
+  SidebarWrapper,
+  SidebarMenu,
+  SidebarTitle,
+  SidebarList,
+  SidebarListItem,
+} from "./sidebar";
+import { Link, NavLink } from "react-router-dom";
 
-}
+const Sidebar = () => {
+    const activeLink= 'background-color: rgb(86, 89, 94) color: black color: white'
+  return (
+    <Container>
+      <SidebarWrapper>
+        <SidebarMenu>
+          <SidebarTitle>Chức năng</SidebarTitle>
+          <SidebarList>
+            <NavLink
+             className="active"
+              style={{ textDecoration: "none" }}
+              to={"/home"}
+            >
+              <SidebarListItem >
+                <LineStyleIcon className="icon" />
+                Trang chủ
+              </SidebarListItem>
+            </NavLink>
+          </SidebarList>
+        </SidebarMenu>
+        <SidebarMenu>
+          <SidebarList>
+            <NavLink style={{ textDecoration: "none" }} to={"/users"}>
+              <SidebarListItem>
+                <PersonOutlineIcon className="icon" />
+                Khách hàng
+              </SidebarListItem>
+            </NavLink>
+            <NavLink style={{ textDecoration: "none" }} to={"/products"}>
+              <SidebarListItem>
+                <StorefrontIcon className="icon" />
+                Sản phẩm
+              </SidebarListItem>
+            </NavLink>
+            <NavLink style={{ textDecoration: "none" }} to={"/orderList"}>
+              <SidebarListItem>
+                <AttachMoneyIcon className="icon" />
+                Đơn hàng
+              </SidebarListItem>
+            </NavLink>
+          </SidebarList>
+        </SidebarMenu>
+      </SidebarWrapper>
+    </Container>
+  );
+};
 
-
-export default Sidebar
+export default Sidebar;
