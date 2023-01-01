@@ -44,6 +44,7 @@ const Home = ()=>{
       );
 
       useEffect(() => {
+        console.log('hi');
         const getStats = async () => {
           try {
             const res = await userRequest.get("user/stat");

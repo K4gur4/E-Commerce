@@ -25,9 +25,8 @@ const Sidebar = () => {
           <SidebarTitle>Chức năng</SidebarTitle>
           <SidebarList>
             <NavLink
-             className="active"
               style={{ textDecoration: "none" }}
-              to={"/home"}
+              to={"/"}
             >
               <SidebarListItem >
                 <LineStyleIcon className="icon" />

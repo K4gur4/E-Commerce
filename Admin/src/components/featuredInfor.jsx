@@ -64,7 +64,7 @@ const FeaturedInfor = () => {
         try {
             const res= await orderRequest.get("order/income/")
             setIncome(res.data)
-            serPerc((res.data[1].total*100)/res.data[0].total-100)
+            serPerc((res.data[1]?.total*100)/res.data[0].total-100)
         } catch (error) {
             console.log(error.message);
         }
