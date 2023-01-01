@@ -7,8 +7,10 @@ export const login = async (dispatch,user)=>{
     dispatch(loginStart());
     try {
         const res= await publicRequest.post("/auth/login",user)
+        alert("đăng nhập thành công")
         dispatch(loginSuccess(res.data))
     } catch (error) {
+      alert("đăng nhập thất bại")
         dispatch(loginFailure())
     }
 }

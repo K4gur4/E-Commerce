@@ -9,9 +9,10 @@ import { useHistory } from 'react-router-dom';
 const Topbar= ()=>{
     const dispatch= useDispatch()
     const history= useHistory()
-    const logOut=()=>{
+    const logOutUser=()=>{
         dispatch(logout());
-        history.push(`/`)
+        alert('Hãy đăng nhập')
+        history.push('/login')
     }
     return(
         <Container>
@@ -19,7 +20,7 @@ const Topbar= ()=>{
                 <TopLeft><Logo>7DECMBER. Admin</Logo></TopLeft>
                 <TopbRight>
                         <Icon>
-                            <User onClick={logOut}>Đăng xuất</User>
+                            <User onClick={logOutUser}>Đăng xuất</User>
                         </Icon>
                         {/* <Icon>
                             <NotificationsNoneIcon/>
@@ -33,7 +34,6 @@ const Topbar= ()=>{
                             <SettingsIcon/>
                         </Icon> */}
                 </TopbRight>
-                
             </TopbarWrapper>
         </Container>
     )

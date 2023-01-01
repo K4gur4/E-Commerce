@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import Navbar from "../components/navbar";
 import { login } from "../redux/apiCalls";
-import { useHistory } from "react-router-dom";
+import { mobile } from "../responsive";
 
 const Container = styled.div`
   width: 100vw;
@@ -23,12 +25,13 @@ const Wrapper = styled.div`
   width: 30%;
   background-color: white;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  ${mobile({ width: "80%" })}
 `;
 const Title = styled.h1`
   font-size: 24px;
   font-weight: 300;
 `;
-const Form = styled.div`
+const Form = styled.form`
   display: flex;
   flex-direction: column;
 `;
@@ -53,41 +56,60 @@ const Button = styled.button`
   }
 `;
 
+const LinkTo = styled.a`
+  margin: 5px 0px;
+  font-size: 12px;
+  text-decoration: underline;
+  cursor: pointer;
+`;
+const Error = styled.span`
+  color: red;
+`;
+
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-  const history= useHistory()
-  const handleLogin = (e) => {
+  const { isFetching, error } = useSelector((state) => state.user);
+  const handleClick = (e) => {
     e.preventDefault();
     login(dispatch, { username, password });
-    alert("Đăng nhập thành công")
-    history.push('/home')
   };
   return (
     <>
-      <Container>
-        <Wrapper>
-          <Title>7DECEMBER. Quản trị viên đăng nhập.</Title>
-          <Form>
-            <Input
-              placeholder="Tên đăng nhập"
-              onChange={(e) => {
-                setUsername(e.target.value);
-              }}
-            />
-            <Input
-              type="password"
-              placeholder="Mật khẩu"
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-            />
-            <Button onClick={handleLogin}>Đăng nhập</Button>
-          </Form>
-        </Wrapper>
-      </Container>
+     <Navbar/>
+ <Container>
+      <Wrapper>
+        <Title>Chào mừng bạn đến với 7DECEMBER.</Title>
+        <Form>
+          <Input
+            placeholder="Tên đăng nhập"
+            onChange={(e) => {
+              setUsername(e.target.value);
+            }}
+          />
+          <Input
+            type="password"
+            placeholder="Mật khẩu"
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+          />
+          <Button onClick={handleClick} disabled={isFetching}>
+            Đăng nhập
+          </Button>
+          {error && (
+            <Error>Bạn nhập sai toài khoản hoặc mật khẩu, hãy thử lại!!</Error>
+          )}
+          <LinkTo>Quên mật khẩu</LinkTo>
+          <Link to={"/register"}>
+          <LinkTo>Đăng ký thành viên 7DECEMBER.</LinkTo>
+          </Link>
+        </Form>
+      </Wrapper>
+    </Container>
     </>
+   
   );
 };
 
