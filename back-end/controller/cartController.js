@@ -1,5 +1,4 @@
-const CryptoJS = require("crypto-js");
-const Cart = require("../models/cart");
+const Cart = require('../models/cart');
 
 const createCart = async (req, res) => {
   const reqCart = req.body;
@@ -20,7 +19,7 @@ const updateCart = async (req, res) => {
       },
       { new: true }
     );
-    console.log("update completed");
+    console.log('update completed');
     res.status(200).json(data);
   } catch (err) {
     res.status(500).json(err);
@@ -30,7 +29,7 @@ const updateCart = async (req, res) => {
 const deleteCart = async (req, res) => {
   try {
     await Cart.findByIdAndDelete(req.params.id);
-    res.status(200).json("Cart has been deleted...");
+    res.status(200).json('Cart has been deleted...');
   } catch (error) {
     res.status(500).json(err);
   }
@@ -46,21 +45,20 @@ const getUserCart = async (req, res) => {
 };
 
 const getAllCart = async (req, res) => {
-    try {
-        const Carts = await Cart.find();
-        res.status(200).json(Carts);
-      } catch (err) {
-        res.status(500).json(err);
-      }
+  try {
+    const Carts = await Cart.find();
+    res.status(200).json(Carts);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 };
 
 //Get Monthly Income
-
 
 module.exports = {
   updateCart,
   deleteCart,
   getUserCart,
   getAllCart,
-  createCart
+  createCart,
 };

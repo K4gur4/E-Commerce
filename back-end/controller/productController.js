@@ -1,5 +1,4 @@
-const CryptoJS = require("crypto-js");
-const Product = require("../models/product");
+const Product = require('../models/product');
 
 const createProduct = async (req, res) => {
   const reqProduct = req.body;
@@ -21,7 +20,7 @@ const updateProduct = async (req, res) => {
       },
       { new: true }
     );
-    console.log("update completed");
+    console.log('update completed');
     res.status(200).json(data);
   } catch (err) {
     res.status(500).json(err);
@@ -31,7 +30,7 @@ const updateProduct = async (req, res) => {
 const deleteProduct = async (req, res) => {
   try {
     await Product.findByIdAndDelete(req.params.id);
-    res.status(200).json("Product has been deleted...");
+    res.status(200).json('Product has been deleted...');
   } catch (error) {
     res.status(500).json(err);
   }
@@ -51,27 +50,22 @@ const getAllProduct = async (req, res) => {
   const qCategory = req.query.category;
   try {
     let products;
-    if(qNew&&qCategory){
+    if (qNew && qCategory) {
       products = await Product.find({
         categories: {
-          $in: [qCategory]
+          $in: [qCategory],
         },
-      }).sort({ createdAt: -1 })
-   
-    }
-    else if (qNew) {
+      }).sort({ createdAt: -1 });
+    } else if (qNew) {
       products = await Product.find().sort({ createdAt: -1 }).limit(9);
-  
     } else if (qCategory) {
       products = await Product.find({
         categories: {
           $in: [qCategory],
         },
       });
-   
-    } 
-    else{
-      products = await Product.find()
+    } else {
+      products = await Product.find();
     }
     res.status(200).json(products);
   } catch (err) {

@@ -1,4 +1,4 @@
-const momgoose = require("mongoose");
+const momgoose = require('mongoose');
 
 const orderSchema = new momgoose.Schema(
   {
@@ -6,9 +6,10 @@ const orderSchema = new momgoose.Schema(
     products: [
       {
         productId: {
-          type: String, unique:false
+          type: String,
+          unique: false,
         },
-        title: { type: String,unique:false },
+        title: { type: String, unique: false },
         img: { type: String },
         quantity: {
           type: Number,
@@ -24,11 +25,11 @@ const orderSchema = new momgoose.Schema(
     address: { type: String, require: true },
     city: { type: String, require: true },
     phone: { type: String, require: true },
-    status: { type: String, default: "Chờ xác nhận" },
+    status: { type: String, default: 'Chờ xác nhận' },
   },
   {
     timestamps: true,
   }
 );
 
-module.exports = momgoose.model("Order", orderSchema);
+module.exports = momgoose.model('Order', orderSchema);

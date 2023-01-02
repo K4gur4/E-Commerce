@@ -1,5 +1,5 @@
-const CryptoJS = require("crypto-js");
-const User = require("../models/user");
+const CryptoJS = require('crypto-js');
+const User = require('../models/user');
 
 const updateUser = async (req, res) => {
   if (req.body.password) {
@@ -16,7 +16,7 @@ const updateUser = async (req, res) => {
       },
       { new: true }
     );
-    console.log("update completed");
+    console.log('update completed');
     res.status(200).json(userUpdate);
   } catch (err) {
     res.status(500).json(err);
@@ -25,8 +25,8 @@ const updateUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
   try {
-    const userDelete = await User.findByIdAndDelete(req.params.id);
-    res.status(200).json("user has been deleted...");
+    await User.findByIdAndDelete(req.params.id);
+    res.status(200).json('user has been deleted...');
   } catch (error) {
     res.status(500).json(err);
   }
@@ -63,21 +63,21 @@ const getStatsUser = async (req, res) => {
       { $match: { createdAt: { $gte: lastYear } } },
       {
         $project: {
-          month: { $month: "$createdAt" },
+          month: { $month: '$createdAt' },
         },
       },
       {
         $group: {
-          _id: "$month",
+          _id: '$month',
           total: { $sum: 1 },
         },
       },
     ]);
-    res.status(200).json(data.sort((a, b) => a._id - b._id))
+    res.status(200).json(data.sort((a, b) => a._id - b._id));
   } catch (err) {
     console.log(err);
     res.status(500).json(err.message);
   }
 };
 
-module.exports = { updateUser, deleteUser, getUser, getAlluser,getStatsUser };
+module.exports = { updateUser, deleteUser, getUser, getAlluser, getStatsUser };
