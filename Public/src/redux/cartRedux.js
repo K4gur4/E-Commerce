@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+//for checking
 const cartSlice = createSlice({
   name: "cart",
   initialState: {

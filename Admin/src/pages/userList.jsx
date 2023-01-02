@@ -6,7 +6,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { rows } from "../dummyData";
 import { Link } from "react-router-dom";
 import { userRequest } from "../resquestMethods";
-
+//for checking
 const Container= styled.div`
     flex: 4;
     padding: 20px;
@@ -31,7 +31,7 @@ const UserList = ()=>{
   const getUsers = async ()=>{
         try {
             const res= await userRequest.get("user/?new=true")
-            setUsers(res.data)
+            setUsers(res.data.users)
         } catch (error) {
             console.log(error.message);
         }

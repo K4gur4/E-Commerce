@@ -7,7 +7,7 @@ import Navbar from '../components/navbar'
 import Newsletter from '../components/newsletter'
 import Products from '../components/products'
 import { mobile } from '../responsive'
-
+//for checking
 const Container= styled.div`
 `
 const Title= styled.h1`margin: 20px;`
@@ -47,7 +47,6 @@ const handleSoft=(e)=>{
     setSort(value)
 }
 
-console.log(sort);
 return (
     <Container>
         <Announcement/>

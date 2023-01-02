@@ -10,7 +10,7 @@ const Container = styled.div`
   flex: 4;
   padding: 20px;
 `;
-
+//for checking
 const ProductTitle = styled.div`
   display: flex;
   align-items: center;
@@ -146,15 +146,9 @@ const Product = () => {
     ],
     []
   );
-
-
   const product = useSelector((state) =>
-  state.product.products.find((product) => product._id === productId)
+  state.product.products.allProduct.find((product) => product._id === productId)
   );
-  
-  console.log(product);
- 
-
   useEffect(() => {
     const getStats = async () => {
       try {
@@ -175,7 +169,6 @@ const Product = () => {
     getStats();
   }, [productId, MONTHS]);
 
-  console.log(pStats);
 
   return (
     <Container>

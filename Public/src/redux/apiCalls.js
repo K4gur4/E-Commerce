@@ -3,6 +3,8 @@ import {loginStart,loginFailure, loginSuccess,resStart,resSuccess,resFailure,cha
 import {publicRequest,orderRequest} from "../resquestMethods"
 import { orderStart,orderSuccess,orderFailure } from "./orderRedux";
 import { clearCart } from "./cartRedux";
+
+//for checking
 const user = JSON.parse(localStorage.getItem("persist:root"))?.user;
 const currentUser = user && JSON.parse(user).currentUser;
 const TOKEN = currentUser?.accsessToken;

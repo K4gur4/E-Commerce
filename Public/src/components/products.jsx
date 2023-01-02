@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Product from "./product";
 import axios from "axios"
-
+//for checking
 const Container=styled.div`
     padding: 20px;
     display:flex;
@@ -25,7 +25,7 @@ useEffect(()=>{
             URL+`?new=true`
             
         )
-        setProduct(res.data)
+        setProduct(res.data.allProduct)
     } catch (error) {
         console.log(error);
     }
@@ -52,10 +52,10 @@ useEffect(() => {
             {
             cat?
             filteredProduct.map((item)=>(
-                <Product product={item} key={item.id}/>
+                <Product product={item} key={item._id}/>
             ))
                 : filteredProduct.splice(0,8).map((item)=>(
-                    <Product product={item} key={item.id}/>  
+                    <Product product={item} key={item.index}/>  
                 ))
         }
             

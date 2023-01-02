@@ -16,9 +16,9 @@ router.post('/register', async (req, res) => {
   try {
     const data = await User.create(newUser);
     res.status(201).json({ NewUser: data });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ error: err });
+    return
+  } catch (error) {
+    res.status(500).json({ error: error });
   }
 });
 // đăng nhập
@@ -37,7 +37,8 @@ router.post('/login', async (req, res) => {
       process.env.SEC_KEY
     ).toString(CryptoJS.enc.Utf8);
     if (passwordData !== req.body.password) {
-      return res.status(401).json({ message: 'Wrong password!!!' });
+       res.status(401).json({ message: 'Wrong password!!!' });
+       return
     }
 
     const accsessToken = jwt.sign(
@@ -48,13 +49,10 @@ router.post('/login', async (req, res) => {
       process.env.JWT_KEY,
       { expiresIn: '1d' }
     );
-
-    console.log('log in conpleted');
     const { password, ...other } = user._doc;
-    return res.status(200).json({ dataLogin: other, accsessToken });
-  } catch (err) {
-    console.log(err.message);
-    return res.status(500).json({ error: err });
+     res.status(200).json({ dataLogin: other, accsessToken });
+  } catch (error) {
+     res.status(500).json({ error: error });
   }
 });
 

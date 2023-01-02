@@ -8,6 +8,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+//for checking
 const Container = styled.div`
   margin: 20px;
   padding: 20px;
@@ -16,7 +17,6 @@ const Container = styled.div`
 const Title = styled.h3`
   margin-bottom: 20px;
 `;
-
 const Chart = ({title,data,dataKey,grid}) => {
   return (
     <Container>

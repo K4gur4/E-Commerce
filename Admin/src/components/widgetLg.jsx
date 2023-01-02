@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { userRequest } from "../resquestMethods";
-
+//for checking
 const Container = styled.div`
   flex: 2;
   box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
@@ -63,7 +63,7 @@ const WidgetLg = () => {
        const getOrders = async ()=>{
         try {
             const res= await userRequest.get("order/")
-            setOrders(res.data)
+            setOrders(res.data.allOrder)
         } catch (error) {
             console.log(error.message);
         }

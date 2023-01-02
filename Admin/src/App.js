@@ -12,12 +12,12 @@ import NewProduct from "./pages/newProduct.jsx";
 import Login from "./pages/login.jsx";
 import OrderList from "./pages/orderlist.jsx";
 import Order from "./pages/order.jsx";
-
+//for checking
 const Container = styled.div`
   display: flex;
   margin-top: 10px;
 `;
-
+//for checking
 function App() {
   const admin = JSON.parse(
     JSON.parse(localStorage.getItem("persist:root")).user

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import axios from 'axios'
 import { userRequest } from "../resquestMethods";
 import { Link } from "react-router-dom";
-
+//for checking
 
 const Container = styled.div`
     flex: 1;
@@ -65,7 +65,7 @@ const WidgetSm =()=>{
   const getUsers = async ()=>{
         try {
             const res= await userRequest.get("user/?new=true")
-            setUsers(res.data)
+            setUsers(res.data.users)
         } catch (error) {
             console.log(error.message);
         }

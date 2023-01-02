@@ -5,9 +5,9 @@ const createProduct = async (req, res) => {
   try {
     const newProduct = await Product.create(reqProduct);
     res.status(201).json({ newProduct: newProduct });
-  } catch (err) {
-    console.log(err.message);
-    res.status(500).json(err);
+    return
+  } catch (error) {
+    res.status(500).json(error);
   }
 };
 
@@ -20,56 +20,59 @@ const updateProduct = async (req, res) => {
       },
       { new: true }
     );
-    console.log('update completed');
-    res.status(200).json(data);
-  } catch (err) {
-    res.status(500).json(err);
+    res.status(200).json({productUpdated:data});
+    return
+  } catch (error) {
+    res.status(500).json(error);
   }
 };
 
 const deleteProduct = async (req, res) => {
   try {
     await Product.findByIdAndDelete(req.params.id);
-    res.status(200).json('Product has been deleted...');
+    res.status(200)
+    return
   } catch (error) {
-    res.status(500).json(err);
+    res.status(500).json(error);
   }
 };
 
 const getProduct = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
-    res.status(200).json(product);
+    res.status(200).json({product:product});
+    return
   } catch (error) {
     res.status(500).json(error.message);
   }
 };
 
-const getAllProduct = async (req, res) => {
-  const qNew = req.query.new;
-  const qCategory = req.query.category;
+const allProduct = async (req, res) => {
+  const productNew = req.query.new;
+  const productCategory = req.query.category;
   try {
     let products;
-    if (qNew && qCategory) {
+    if (productNew && productCategory) {
       products = await Product.find({
         categories: {
-          $in: [qCategory],
+          $in: [productCategory],
         },
       }).sort({ createdAt: -1 });
-    } else if (qNew) {
+    } else if (productNew) {
       products = await Product.find().sort({ createdAt: -1 }).limit(9);
-    } else if (qCategory) {
+    } else if (productCategory) {
       products = await Product.find({
         categories: {
-          $in: [qCategory],
+          $in: [productCategory],
         },
       });
     } else {
       products = await Product.find();
     }
-    res.status(200).json(products);
-  } catch (err) {
-    res.status(500).json(err.message);
+    res.status(200).json({allProduct:products});
+    return
+  } catch (error) {
+    res.status(500).json(error.message);
   }
 };
 
@@ -77,6 +80,6 @@ module.exports = {
   updateProduct,
   deleteProduct,
   getProduct,
-  getAllProduct,
+  allProduct,
   createProduct,
 };

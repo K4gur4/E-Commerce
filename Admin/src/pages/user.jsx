@@ -8,7 +8,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { userRequest } from "../resquestMethods";
 
-
+//for checking
 const Container = styled.div`
   flex: 4;
   padding: 20px;
@@ -143,7 +143,7 @@ const User = () => {
     const getUser = async () => {
       try {
         const res = await userRequest.get("user/find/" + userId);
-        setUser(res.data)
+        setUser(res.data.user)
       } catch (err) {
         console.log(err);
       }

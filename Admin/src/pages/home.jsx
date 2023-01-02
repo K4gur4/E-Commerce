@@ -7,7 +7,7 @@ import Topbar from "../components/topbar/Topbar.jsx";
 import WidgetLg from "../components/widgetLg";
 import WidgetSm from "../components/widgetSm";
 import { userRequest } from "../resquestMethods";
-
+//for checking
 const Container= styled.div`
     flex: 4;
     padding: 10px;
@@ -48,7 +48,7 @@ const Home = ()=>{
         const getStats = async () => {
           try {
             const res = await userRequest.get("user/stat");
-            res.data.map((item) =>
+            res.data.userStat.map((item) =>
             setUserStat((prev) => [
                 ...prev,
                 { name: MONTHS[item._id - 1], "Active User": item.total },

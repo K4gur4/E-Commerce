@@ -12,7 +12,7 @@ import axios from "axios";
 import { publicRequest } from "../resquestMethods";
 import { addProduct } from "../redux/cartRedux";
 import { useDispatch } from "react-redux";
-
+//for checking
 const Container = styled.div``;
 
 const Wrapper = styled.div`padding: 50px;
@@ -132,7 +132,7 @@ const Product = () => {
     const getProduct = async ()=>{
       try {
         const res= await publicRequest.get("/product/find/"+id)
-        setProduct(res.data)
+        setProduct(res.data.product)
       } catch (error) {
         console.log(error.message);
       }

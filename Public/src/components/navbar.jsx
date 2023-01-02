@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import { logout } from "../redux/userRedux";
 import { clearCart } from "../redux/cartRedux";
 import { useHistory } from "react-router-dom";
-
+//for checking
 const Container = styled.div`
   height: 60px;
   background: #a8a8a8;

@@ -6,16 +6,14 @@ const {
 const {
   updateOrder,
   deleteOrder,
-  getUserOrder,
-  getAllOrder,
   createOrder,
   monthlyIncome,
-  getOrder,
+  getOrder,allOrder,userOrder
 } = require('../controller/orderController');
 router.post('/', verifyTokenAndAuthorization, createOrder);
-router.get('/', verifyTokenIsAdmin, getAllOrder);
+router.get('/', verifyTokenIsAdmin, allOrder);
 router.put('/:id', verifyTokenAndAuthorization, updateOrder);
-router.get('/find/:userId', verifyTokenAndAuthorization, getUserOrder);
+router.get('/find/:userId', verifyTokenAndAuthorization, userOrder);
 router.get('/findOrder/:id', verifyTokenAndAuthorization, getOrder);
 router.delete('/:id', verifyTokenIsAdmin, deleteOrder);
 router.get('/income', verifyTokenIsAdmin, monthlyIncome);

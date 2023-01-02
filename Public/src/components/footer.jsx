@@ -5,6 +5,7 @@ import RoomIcon from "@mui/icons-material/Room";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import EmailIcon from "@mui/icons-material/Email";
 import { mobile } from "../responsive";
+//for checking
 const Container = styled.div`
   display: flex;
   ${mobile({ flexDirection: "column" })}

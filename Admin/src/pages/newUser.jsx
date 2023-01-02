@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { register } from "../redux/apiCalls";
-
+//for checking
 const Container = styled.div`
   flex: 4;
   margin-left: 20px;

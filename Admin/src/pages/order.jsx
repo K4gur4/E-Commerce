@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { userRequest } from "../resquestMethods";
+//for checking
 const Container = styled.div`
   flex: 4;
   padding: 20px;
@@ -99,26 +100,25 @@ const Order = () => {
   const ordertId = location.pathname.split("/")[2];
   const history= useHistory()
   const [status,setStatus] = useState("")
-  const [order, setOrder] = useState({});
+  const [userOrder, setOrder] = useState({});
   useEffect(() => {
     const getOrder = async () => {
       try {
         const res = await userRequest.get("order/findOrder/" + ordertId);
-        setOrder(res.data[0]);
+        setOrder(res.data.order[0]);
       } catch (error) {
         console.log(error.message);
       }
     };
     getOrder();
   }, [ordertId]);
-  console.log("order", order);
+  console.log("order", userOrder);
   console.log(status);
 
 
   const newStatus= async ()=>{
     try {
-        const res = await userRequest.put("order/" + ordertId,{status:status});
-        console.log(res);
+        await userRequest.put("order/" + ordertId,{status:status});
         alert("cập nhật trạng thái thành công")
         history.push('/orderlist')
     } catch (error) {
@@ -130,7 +130,7 @@ const Order = () => {
         if(!status){
             alert("Bạn chưa chọn trạng thái mới")
         }
-        else if(status===order.status){
+        else if(status===userOrder.status){
             alert("Bạn chưa chọn trạng thái mới")
             
         }
@@ -147,19 +147,19 @@ const Order = () => {
             <OrderInfor>
               <OrderInforItem>
                 <OrderInforKey>Mã Đơn hàng:</OrderInforKey>
-                <OrderInforData>{order._id}</OrderInforData>
+                <OrderInforData>{userOrder._id}</OrderInforData>
               </OrderInforItem>
               <OrderInforItem>
                 <OrderInforKey>Tên người nhận:</OrderInforKey>{" "}
-                <OrderInforData>{order.name}</OrderInforData>
+                <OrderInforData>{userOrder.name}</OrderInforData>
               </OrderInforItem>
               <OrderInforItem>
                 <OrderInforKey>Địa chỉ:</OrderInforKey>
-                <OrderInforData>{order.address}</OrderInforData>
+                <OrderInforData>{userOrder.address}</OrderInforData>
               </OrderInforItem>
               <OrderInforItem>
                 <OrderInforKey>Thành phố:</OrderInforKey>
-                <OrderInforData>{order.city}</OrderInforData>
+                <OrderInforData>{userOrder.city}</OrderInforData>
               </OrderInforItem>
             </OrderInfor>
           </Left>
@@ -167,7 +167,7 @@ const Order = () => {
             <OrderInforItem>
             <OrderInforKey>Tổng tiền:</OrderInforKey>
               <OrderInforData>
-                {order.total?.toLocaleString("it-IT", {
+                {userOrder.total?.toLocaleString("it-IT", {
                   style: "currency",
                   currency: "VND",
                 })}
@@ -175,12 +175,12 @@ const Order = () => {
             </OrderInforItem>
             <OrderInforItem>
             <OrderInforKey>Hình thức thanh toán:</OrderInforKey>
-              <OrderInforData>{order.payMent}</OrderInforData>
+              <OrderInforData>{userOrder.payMent}</OrderInforData>
             </OrderInforItem>
             <OrderInforItem>
             <OrderInforKey>Trạng thái đơn hàng:</OrderInforKey>
-              <OrderInforStatus type={order.status}>
-                {order.status}
+              <OrderInforStatus type={userOrder.status}>
+                {userOrder.status}
               </OrderInforStatus>
             </OrderInforItem>
 
@@ -200,7 +200,7 @@ const Order = () => {
         </Top>
         <Bot>
             {
-                order.products?.map(
+                userOrder.products?.map(
                     (product)=>(
                         <ProductInfo>
                     <ProductImg src={product.img}/>

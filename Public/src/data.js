@@ -1,5 +1,5 @@
 
-
+//for checking
 export const categories=[
     {
         id:1,

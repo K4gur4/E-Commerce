@@ -1,6 +1,7 @@
 
 import styled from 'styled-components'
 import { mobile } from '../responsive'
+//for checking
 const Container=styled.div`
     height: 30px;
     background-color: teal;

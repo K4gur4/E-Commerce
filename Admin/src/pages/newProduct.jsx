@@ -6,7 +6,7 @@ import {
 import app from "../firebase";
 import { addProduct } from "../redux/apiCalls";
 import { useDispatch } from "react-redux";
-
+//for checking
 const Container = styled.div`
   flex: 4;
   padding: 20px;

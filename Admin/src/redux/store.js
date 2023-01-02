@@ -13,7 +13,7 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-
+//for checking
 
 const persistConfig = {
   key: "root",

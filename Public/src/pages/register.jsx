@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { register } from "../redux/apiCalls";
 import { useHistory } from "react-router-dom";
 import Navbar from "../components/navbar";
+//for checking
 const Container = styled.div`
   width: 100vw;
   height: 100vh;

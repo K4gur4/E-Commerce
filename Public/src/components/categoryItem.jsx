@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import { Link } from "react-router-dom";
-
+//for checking
 const Container = styled.div`
   flex: 1;
   height: 70vh;

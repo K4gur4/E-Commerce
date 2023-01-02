@@ -5,7 +5,7 @@ import styled from "styled-components"
 import { userRequest } from "../resquestMethods"
 import DeleteIcon from '@mui/icons-material/Delete';
 import { DataGrid } from "@mui/x-data-grid";
-
+//for checking
 
 const Container= styled.div`
     flex: 4;
@@ -101,7 +101,7 @@ const OrderList = () => {
   const getOrders = async ()=>{
         try {
             const res= await userRequest.get("order/")
-            setOrder(res.data)
+            setOrder(res.data.allOrder)
         } catch (error) {
             console.log(error.message);
         }

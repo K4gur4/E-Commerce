@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import { getProducts,deleteProducts } from "../redux/apiCalls";
-
+//for checking
 const Container = styled.div`
   flex: 4;
   padding: 20px;
@@ -35,7 +35,7 @@ cursor: pointer;
 margin-right: 20px;`
 
 const Products = () => {
-  const products= useSelector((state)=> state.product.products)
+  const products= useSelector((state)=> state.product.products.allProduct)
   const dispatch= useDispatch()
 
  
