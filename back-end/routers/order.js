@@ -11,6 +11,7 @@ const {
   getOrder,
   allOrder,
   userOrder,
+  dailyIcome
 } = require('../controller/orderController');
 router.post('/', verifyTokenAndAuthorization, createOrder);
 router.get('/', verifyTokenIsAdmin, allOrder);
@@ -19,5 +20,6 @@ router.get('/find/:userId', verifyTokenAndAuthorization, userOrder);
 router.get('/findOrder/:id', verifyTokenAndAuthorization, getOrder);
 router.delete('/:id', verifyTokenIsAdmin, deleteOrder);
 router.get('/income', verifyTokenIsAdmin, monthlyIncome);
+router.get('/daily', verifyTokenIsAdmin, dailyIcome);
 
 module.exports = router;

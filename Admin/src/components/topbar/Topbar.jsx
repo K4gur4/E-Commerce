@@ -14,7 +14,6 @@ const Topbar= ()=>{
        dispatch(logout());
         alert('Về trang đăng nhập!!')
         navigate('/login')
-        window.location.reload()
     }
     return(
         <Container>

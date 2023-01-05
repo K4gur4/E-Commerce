@@ -59,22 +59,17 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
 const user= useSelector(state=>state.user.currentUser)
-
 const {error,isFetching}= useSelector(state=>state.user)
 const navigate= useNavigate()
 const [err,setErr]= useState(error)
-console.log(user);
   const handleLogin = async (e) => {
     e.preventDefault();
      await login(dispatch, { username, password });
       if(isFetching){
         console.log('loading...');
       }
-      else if(error){
-        console.log('err',error.message);
-      }
       else{
-        navigate('/home')
+        navigate('/')
       }
       window.location.reload()
   };
@@ -98,7 +93,7 @@ console.log(user);
               }}
             />
             <Button onClick={handleLogin}>Đăng nhập</Button>
-            {err ? <p>Sai thông tin đăng nhập</p>: <></>}
+            {err ? <p style={{color:"red"}}>Sai thông tin đăng nhập</p>: <></>}
           </Form>
         </Wrapper>
       </Container>

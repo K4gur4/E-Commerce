@@ -26,7 +26,7 @@ function App() {
     <BrowserRouter>
     <Routes>
       <Route element={<PrivateRoutes/>}>
-          <Route element={<Home /> } exact path="/home"/>
+          <Route element={<Home /> } exact path="/"/>
            <Route element={<UserList />} path="/users"/>
            <Route element={<User />} path="/user/:id"/>
            <Route element={<NewUser />} path="/newUser"/>
@@ -36,9 +36,7 @@ function App() {
            <Route element={<OrderList />} path="/orderList"/>
            <Route element={<Order />} path="/order/:id"/>
       </Route>
-      <Route element={<PublicRoutes/>} exact path='/'>
       <Route element={<Login /> } exact path="/login"/>
-      </Route>
     </Routes>
     </BrowserRouter>
   );

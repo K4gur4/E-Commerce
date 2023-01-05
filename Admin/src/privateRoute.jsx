@@ -1,10 +1,8 @@
 import { Outlet, Navigate } from 'react-router-dom'
+import { useSelector } from 'react-redux';
 
 const PrivateRoutes = () => {
-    let admin = JSON.parse(
-        JSON.parse(localStorage.getItem("persist:root")).user
-      )?.currentUser?.dataLogin?.isAdmin;
-   
+    const admin= useSelector(state=>state.user.currentUser?.dataLogin?.isAdmin)
     return(
         admin ? <Outlet/> : <Navigate to="/login"/>
     )

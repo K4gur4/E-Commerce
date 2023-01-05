@@ -59,29 +59,55 @@ color: gray;
 `
 const FeaturedInfor = () => {
     const [income,setIncome]= useState([]);
+    const [daily,setDaily]= useState([]);
     const [perc,serPerc]= useState(0);
+    const [perc2,serPerc2]= useState(0);
     const getIncome= async ()=>{
         try {
             const res= await orderRequest.get("order/income")
             setIncome(res.data.income)
-            serPerc((res.data.income[1]?.total*100)/res.data.income[0]?.total-100)
+            serPerc((res.data.income[0]?.revenue*100)/res.data.income[1]?.revenue-100)
         } catch (error) {
             console.log(error.message);
         }
-
     }
-
+    const getDaily= async ()=>{
+        try {
+            const res= await orderRequest.get("order/daily")
+            setDaily((res.data.income).sort((a,b)=>b._id-a._id))
+            serPerc2((res.data.income[0]?.revenue*100)/res.data.income[1]?.revenue)
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
     useEffect(()=>{
         getIncome()
+        getDaily()
     },[])
-
+    
+    console.log("daily",daily);
 console.log("income",income);
 return(
 <Container>
     <FeaturedItem>
         <FeaturedTitle>Doanh thu</FeaturedTitle>
             <FeaturedMoneyContainer>
-                <FeaturedMoney>{income[1]?.total
+                <FeaturedMoney>{daily[0]?.revenue
+                .toLocaleString('it-IT', {style : 'currency', currency : 'VND'})
+                }</FeaturedMoney>
+                <FeaturedMoneyRate>{Math.floor(perc2)}% {" "}
+                {perc2 < 0 ? (
+                    <ArrowDownwardIcon className="freaturedIcon negative"/>
+                    ):(<ArrowUpwardIcon className="freaturedIcon "/>)
+                }
+                </FeaturedMoneyRate>
+            </FeaturedMoneyContainer>
+                <FeaturedSub> So với hôm qua </FeaturedSub>
+    </FeaturedItem>
+    <FeaturedItem>
+    <FeaturedTitle>Doanh thu</FeaturedTitle>
+            <FeaturedMoneyContainer>
+                <FeaturedMoney>{income[0]?.revenue
                 .toLocaleString('it-IT', {style : 'currency', currency : 'VND'})
                 }</FeaturedMoney>
                 <FeaturedMoneyRate>{Math.floor(perc)}% {" "}

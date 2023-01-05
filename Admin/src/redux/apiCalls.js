@@ -10,7 +10,6 @@ export const login = async (dispatch,user)=>{
         alert("đăng nhập thành công")
         dispatch(loginSuccess(res.data))
     } catch (error) {
-      alert("đăng nhập thất bại")
         dispatch(loginFailure())
     }
 }

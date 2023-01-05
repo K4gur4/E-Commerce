@@ -26,7 +26,7 @@ const Sidebar = () => {
           <SidebarList>
             <NavLink
               style={{ textDecoration: "none" }}
-              to={"/home"}
+              to={"/"}
             >
               <SidebarListItem >
                 <LineStyleIcon className="icon" />

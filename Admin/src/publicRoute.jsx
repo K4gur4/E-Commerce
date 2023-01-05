@@ -1,10 +1,8 @@
+import { useSelector } from 'react-redux'
 import { Outlet, Navigate } from 'react-router-dom'
 
 const PublicRoutes = () => {
-    let admin = JSON.parse(
-        JSON.parse(localStorage.getItem("persist:root")).user
-      )?.currentUser?.dataLogin?.isAdmin;
-   
+    const admin= useSelector(state=>state.user.currentUser?.dataLogin?.isAdmin)
     return(
         !admin ? <Outlet/> : <Navigate to="/home"/>
     )
