@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { userRequest } from "../resquestMethods";
+import Topbar from "../components/topbar/Topbar.jsx";
+import Sidebar from '../components/sidebar/Sidebar.jsx'
+const Containerall = styled.div`
+  display: flex;
+  margin-top: 10px;
+`;
 //for checking
 const Container = styled.div`
   flex: 4;
@@ -98,7 +104,7 @@ const ProductItem= styled.span``
 const Order = () => {
   const location = useLocation();
   const ordertId = location.pathname.split("/")[2];
-  const history= useHistory()
+  const navigate= useNavigate()
   const [status,setStatus] = useState("")
   const [userOrder, setOrder] = useState({});
   useEffect(() => {
@@ -112,15 +118,13 @@ const Order = () => {
     };
     getOrder();
   }, [ordertId]);
-  console.log("order", userOrder);
-  console.log(status);
 
 
   const newStatus= async ()=>{
     try {
         await userRequest.put("order/" + ordertId,{status:status});
         alert("cập nhật trạng thái thành công")
-        history.push('/orderlist')
+        navigate('/orderlist')
     } catch (error) {
         console.log(error.message);
     }
@@ -139,7 +143,11 @@ const Order = () => {
         }
   }
   return (
-    <Container>
+    <>
+    <Topbar/>
+    <Containerall>
+      <Sidebar/>
+      <Container>
       <Title>Chi tiết đơn hàng</Title>
       <UserOrder>
         <Top>
@@ -186,8 +194,8 @@ const Order = () => {
 
             <OrderInforItem>
             <OrderInforKey>Đổi trạng thái:</OrderInforKey>
-              <StatusSelect defaultValue={0} onChange={(e)=>{setStatus(e.target.value)}} name="status">
-              <StatusOption selected value={0} disabled>Chọn trạng thái mới</StatusOption>
+              <StatusSelect defaultValue={'0'} onChange={(e)=>{setStatus(e.target.value)}} name="status">
+              <StatusOption  value={'0'} disabled>Chọn trạng thái mới</StatusOption>
                 <StatusOption  value={"Đã xác nhận"}>Đã xác nhận</StatusOption>
                 <StatusOption value={"Đã giao"}>Đã giao</StatusOption>
                 <StatusOption value={"Đã hủy"}>Đã Hủy</StatusOption>
@@ -213,6 +221,9 @@ const Order = () => {
         </Bot>
       </UserOrder>
     </Container>
+    </Containerall>
+    </>
+    
   );
 };
 

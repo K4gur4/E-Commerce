@@ -5,6 +5,12 @@ import styled from "styled-components"
 import { userRequest } from "../resquestMethods"
 import DeleteIcon from '@mui/icons-material/Delete';
 import { DataGrid } from "@mui/x-data-grid";
+import Topbar from "../components/topbar/Topbar.jsx";
+import Sidebar from '../components/sidebar/Sidebar.jsx'
+const Containerall = styled.div`
+  display: flex;
+  margin-top: 10px;
+`;
 //for checking
 
 const Container= styled.div`
@@ -42,7 +48,7 @@ const OrderList = () => {
   
     const columns = [
         { field: '_id', headerName: 'ID', width: 200 },
-        { field: 'name', headerName: 'Name', width: 130 },
+        { field: 'name', headerName: 'Name', width: 150 },
         {
           field: 'createdAt',
           headerName: 'Ngày tạo',
@@ -95,8 +101,6 @@ const OrderList = () => {
             }
         }
       ];
-      
-
     useEffect(()=>{
   const getOrders = async ()=>{
         try {
@@ -111,22 +115,28 @@ const OrderList = () => {
 
     console.log(orders);
 const handleDelete = (id)=>{
-    console.log(id);
     setOrder(orders.filter((item)=> item._id !== id))
 }
 
 
 return (
+  <>
+  <Topbar/>
+  <Containerall>
+    <Sidebar/>
     <Container>
     <DataGrid
     rows={orders}
     columns={columns}
-    pageSize={7}
+    pageSize={10}
     getRowId={(rows)=>rows._id}
+    rowsPerPageOptions={[10]}
     checkboxSelection
     disableSelectionOnClick
   />
    </Container>
+  </Containerall>
+  </>
 )
 
 }

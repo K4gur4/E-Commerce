@@ -2,10 +2,14 @@ import React, { useEffect, useState } from "react";
 import styled from 'styled-components'
 import { DataGrid } from '@mui/x-data-grid';
 import DeleteIcon from '@mui/icons-material/Delete';
-
-import { rows } from "../dummyData";
 import { Link } from "react-router-dom";
 import { userRequest } from "../resquestMethods";
+import Topbar from "../components/topbar/Topbar.jsx";
+import Sidebar from '../components/sidebar/Sidebar.jsx'
+const Containerall = styled.div`
+  display: flex;
+  margin-top: 10px;
+`;
 //for checking
 const Container= styled.div`
     flex: 4;
@@ -30,7 +34,7 @@ const UserList = ()=>{
     useEffect(()=>{
   const getUsers = async ()=>{
         try {
-            const res= await userRequest.get("user/?new=true")
+            const res= await userRequest.get("user/")
             setUsers(res.data.users)
         } catch (error) {
             console.log(error.message);
@@ -85,16 +89,24 @@ console.log(users);
       ];
       
     return (
+        <>
+            <Topbar/>
+        <Containerall>
+        <Sidebar/>
        <Container>
+        
         <DataGrid
         rows={users}
         columns={columns}
-        pageSize={7}
+        pageSize={10}
         getRowId={(rows)=>rows._id}
+        rowsPerPageOptions={[10]}
         checkboxSelection
         disableSelectionOnClick
       />
        </Container>
+        </Containerall>
+        </>
     )
 }
 

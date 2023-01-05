@@ -5,7 +5,12 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import { getProducts,deleteProducts } from "../redux/apiCalls";
-//for checking
+import Topbar from "../components/topbar/Topbar.jsx";
+import Sidebar from '../components/sidebar/Sidebar.jsx'
+const Containerall = styled.div`
+  display: flex;
+  margin-top: 10px;
+`;
 const Container = styled.div`
   flex: 4;
   padding: 20px;
@@ -49,7 +54,7 @@ console.log(products);
   };
 
   const columns = [
-    { field: "_id", headerName: "ID", width: 220 },
+    { field: "_id", headerName: "ID", width: 100 },
     {
       field: "product",
       headerName: "Tên sản phẩm",
@@ -86,16 +91,23 @@ console.log(products);
   ];
 
   return (
+    <>
+    <Topbar/>
+    <Containerall>
+      <Sidebar/>
     <Container>
       <DataGrid
         rows={products}
         columns={columns}
-        pageSize={7}
+        pageSize={10}
         getRowId={(rows) => rows._id }
+        rowsPerPageOptions={[10]}
         checkboxSelection
         disableSelectionOnClick
       />
     </Container>
+    </Containerall>
+    </>
   );
 };
 

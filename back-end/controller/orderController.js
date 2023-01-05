@@ -69,38 +69,36 @@ const getOrder = async (req, res) => {
 };
 
 const monthlyIncome = async (req, res) => {
-  const productId = req.query.pid;
   const date = new Date();
   const lastMonth = new Date(date.setMonth(date.getMonth() - 1));
   const previousMonth = new Date(new Date().setMonth(lastMonth.getMonth() - 1));
-
+  
   try {
     const income = await Order.aggregate([
-      {
-        $match: {
-          createdAt: { $gte: previousMonth },
-          status: 'Đã giao',
-          ...(productId && { products: { $elemMatch: { productId } } }),
-        },
-      },
-      {
-        $project: {
-          month: { $month: '$createdAt' },
-          sales: '$total',
-        },
-      },
-      {
-        $group: {
-          _id: '$month',
-          total: { $sum: '$sales' },
-        },
-      },
-    ]);
-    res.status(200).json({ inncome: income.sort((a, b) => a._id - b._id) });
-    return;
-  } catch (error) {
-    res.status(500).json(error);
-  }
+          {
+            $match: {
+              createdAt: { $gte: previousMonth },
+            },
+          },
+          {
+            $project: {
+              month: { $month: '$createdAt' },
+              sales: '$total',
+            },
+          },
+          {
+            $group: {
+              _id: '$month',
+              total: { $sum: '$sales' },
+            },
+          },
+        ]);
+        res.status(200).json({ income: income.sort((a, b) => a._id - b._id) });
+        return;
+      } catch (error) {
+        console.log(error.message);
+        res.status(500).json(error.message);
+      }
 };
 
 module.exports = {

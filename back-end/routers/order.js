@@ -8,7 +8,9 @@ const {
   deleteOrder,
   createOrder,
   monthlyIncome,
-  getOrder,allOrder,userOrder
+  getOrder,
+  allOrder,
+  userOrder,
 } = require('../controller/orderController');
 router.post('/', verifyTokenAndAuthorization, createOrder);
 router.get('/', verifyTokenIsAdmin, allOrder);

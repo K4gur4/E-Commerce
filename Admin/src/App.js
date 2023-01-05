@@ -1,9 +1,8 @@
-import Sidebar from "./components/sidebar/Sidebar.jsx";
-import Topbar from "./components/topbar/Topbar.jsx";
+
 import styled from "styled-components";
 import Home from "./pages/home.jsx";
 import UserList from "./pages/userList.jsx";
-import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate,Outlet } from "react-router-dom";
 import User from "./pages/user.jsx";
 import NewUser from "./pages/newUser.jsx";
 import Products from "./pages/productsList.jsx";
@@ -12,6 +11,9 @@ import NewProduct from "./pages/newProduct.jsx";
 import Login from "./pages/login.jsx";
 import OrderList from "./pages/orderlist.jsx";
 import Order from "./pages/order.jsx";
+import { useState } from "react";
+import PrivateRoutes from "./privateRoute.jsx";
+import PublicRoutes from "./publicRoute.jsx";
 //for checking
 const Container = styled.div`
   display: flex;
@@ -19,51 +21,25 @@ const Container = styled.div`
 `;
 //for checking
 function App() {
-  const admin = JSON.parse(
-    JSON.parse(localStorage.getItem("persist:root")).user
-  )?.currentUser?.dataLogin?.isAdmin;
-  console.log(admin);
+
   return (
     <BrowserRouter>
-      <Switch>
-        <Route path="/login">{admin ? <Redirect to="/" /> : <Login />}</Route>
-        {admin && (
-          <>
-            <Topbar />
-            <Container>
-              <Sidebar />
-              <Route exact path="/">
-                {/* {admin ? <Redirect to="/login" /> :( <Home />) } */}
-                <Home />
-              </Route>
-              <Route path="/users">
-                <UserList />
-              </Route>
-              <Route path="/user/:id">
-                <User />
-              </Route>
-              <Route path="/newUser">
-                <NewUser />
-              </Route>
-              <Route path="/products">
-                <Products />
-              </Route>
-              <Route path="/product/:id">
-                <Product />
-              </Route>
-              <Route path="/newProduct">
-                <NewProduct />
-              </Route>
-              <Route path="/orderList">
-                <OrderList />
-              </Route>
-              <Route path="/order/:id">
-                <Order />
-              </Route>
-            </Container>
-          </>
-        )}
-      </Switch>
+    <Routes>
+      <Route element={<PrivateRoutes/>}>
+          <Route element={<Home /> } exact path="/home"/>
+           <Route element={<UserList />} path="/users"/>
+           <Route element={<User />} path="/user/:id"/>
+           <Route element={<NewUser />} path="/newUser"/>
+           <Route element={<Products />} path="/products"/>
+           <Route element={<Product />} path="/product/:id"/>
+           <Route element={<NewProduct />} path="/newProduct"/>
+           <Route element={<OrderList />} path="/orderList"/>
+           <Route element={<Order />} path="/order/:id"/>
+      </Route>
+      <Route element={<PublicRoutes/>} exact path='/'>
+      <Route element={<Login /> } exact path="/login"/>
+      </Route>
+    </Routes>
     </BrowserRouter>
   );
 }

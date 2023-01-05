@@ -8,7 +8,11 @@ import WidgetLg from "../components/widgetLg";
 import WidgetSm from "../components/widgetSm";
 import { userRequest } from "../resquestMethods";
 //for checking
-const Container= styled.div`
+const Container = styled.div`
+  display: flex;
+  margin-top: 10px;
+`;
+const ContainerHome= styled.div`
     flex: 4;
     padding: 10px;
 `
@@ -44,7 +48,6 @@ const Home = ()=>{
       );
 
       useEffect(() => {
-        console.log('hi');
         const getStats = async () => {
           try {
             const res = await userRequest.get("user/stat");
@@ -60,19 +63,21 @@ const Home = ()=>{
         };
         getStats();
       }, [MONTHS]);
-console.log(userStats);
     return (
-     
-       <Container>
+      <>
+      <Topbar/>
+      <Container>
+        <Sidebar/>
+       <ContainerHome>
         <FeaturedInfor/>
         <Chart data={userStats} title="Thông kê người dùng" grid dataKey="Active User"/>
         <HomeWidget>
             <WidgetSm/>
             <WidgetLg/>
         </HomeWidget>
-       </Container>
-     
-   
+       </ContainerHome>
+      </Container>
+      </>
     )
 }
 

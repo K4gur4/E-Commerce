@@ -102,7 +102,6 @@ const Navbar = () => {
   const disPatch = useDispatch();
   const history = useHistory();
   const handleLogout = () => {
-    console.log("User log Out");
     disPatch(logout());
     disPatch(clearCart());
     let path = `/`;

@@ -59,7 +59,6 @@ const allUser = async (req, res) => {
 const statsUser = async (req, res) => {
   const date = new Date();
   const lastYear = new Date(date.setFullYear(date.getFullYear() - 1));
-
   try {
     const data = await User.aggregate([
       { $match: { createdAt: { $gte: lastYear } } },
