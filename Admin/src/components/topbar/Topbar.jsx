@@ -5,14 +5,16 @@ import LanguageIcon from '@mui/icons-material/Language';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../redux/userRedux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+//for checking
 const Topbar= ()=>{
     const dispatch= useDispatch()
-    const history= useHistory()
-    const logOutUser=()=>{
-        dispatch(logout());
-        alert('Hãy đăng nhập')
-        history.push('/login')
+    const navigate= useNavigate()
+    const logOutUser= ()=>{
+       dispatch(logout());
+        alert('Về trang đăng nhập!!')
+        navigate('/login')
+        window.location.reload()
     }
     return(
         <Container>

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import { orderRequest } from "../resquestMethods";
-
+//for checking
 const Container= styled.div`
     width: 100%;
     display: flex;
@@ -62,9 +62,9 @@ const FeaturedInfor = () => {
     const [perc,serPerc]= useState(0);
     const getIncome= async ()=>{
         try {
-            const res= await orderRequest.get("order/income/")
-            setIncome(res.data)
-            serPerc((res.data[1]?.total*100)/res.data[0].total-100)
+            const res= await orderRequest.get("order/income")
+            setIncome(res.data.income)
+            serPerc((res.data.income[1]?.total*100)/res.data.income[0]?.total-100)
         } catch (error) {
             console.log(error.message);
         }
@@ -75,7 +75,7 @@ const FeaturedInfor = () => {
         getIncome()
     },[])
 
-
+console.log("income",income);
 return(
 <Container>
     <FeaturedItem>

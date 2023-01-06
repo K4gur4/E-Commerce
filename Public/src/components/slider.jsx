@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import {mobile} from '../responsive'
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-
+//for checking
 const Container = styled.div`
   width: 100%;
   height: 80vh;
@@ -84,7 +84,7 @@ const history=useHistory()
         const res= await axios.get(
             URL+`?new=true`
         )
-        setNewPro(res.data)
+        setNewPro(res.data.allProduct)
     } catch (error) {
         console.log(error);
     }
@@ -93,7 +93,7 @@ const history=useHistory()
   }
   ,[])
 
-console.log(newPro);
+console.log("slider",newPro);
   const handleClick = (direction) => {
     if (direction === "left") {
       setSlideIndex(slideIndex > 0 ? slideIndex - 1 : 2);

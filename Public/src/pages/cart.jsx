@@ -8,7 +8,7 @@ import { mobile } from "../responsive";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteProduct } from "../redux/cartRedux";
 import { Link, useHistory } from "react-router-dom";
-
+//for checking
 const Container = styled.div``;
 const Wrapper = styled.div`
   padding: 20px;

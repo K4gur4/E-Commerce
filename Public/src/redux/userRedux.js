@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit"
-
+//for checking
 const userSlice = createSlice({
     name: "user",
     initialState:{

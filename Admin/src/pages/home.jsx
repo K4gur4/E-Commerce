@@ -7,8 +7,12 @@ import Topbar from "../components/topbar/Topbar.jsx";
 import WidgetLg from "../components/widgetLg";
 import WidgetSm from "../components/widgetSm";
 import { userRequest } from "../resquestMethods";
-
-const Container= styled.div`
+//for checking
+const Container = styled.div`
+  display: flex;
+  margin-top: 10px;
+`;
+const ContainerHome= styled.div`
     flex: 4;
     padding: 10px;
 `
@@ -44,11 +48,10 @@ const Home = ()=>{
       );
 
       useEffect(() => {
-        console.log('hi');
         const getStats = async () => {
           try {
             const res = await userRequest.get("user/stat");
-            res.data.map((item) =>
+            res.data.userStat.map((item) =>
             setUserStat((prev) => [
                 ...prev,
                 { name: MONTHS[item._id - 1], "Active User": item.total },
@@ -60,19 +63,21 @@ const Home = ()=>{
         };
         getStats();
       }, [MONTHS]);
-console.log(userStats);
     return (
-     
-       <Container>
+      <>
+      <Topbar/>
+      <Container>
+        <Sidebar/>
+       <ContainerHome>
         <FeaturedInfor/>
         <Chart data={userStats} title="Thông kê người dùng" grid dataKey="Active User"/>
         <HomeWidget>
             <WidgetSm/>
             <WidgetLg/>
         </HomeWidget>
-       </Container>
-     
-   
+       </ContainerHome>
+      </Container>
+      </>
     )
 }
 

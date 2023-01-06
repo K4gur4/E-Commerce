@@ -15,7 +15,7 @@ import {
   SidebarListItem,
 } from "./sidebar";
 import { Link, NavLink } from "react-router-dom";
-
+//for checking
 const Sidebar = () => {
     const activeLink= 'background-color: rgb(86, 89, 94) color: black color: white'
   return (
@@ -26,7 +26,7 @@ const Sidebar = () => {
           <SidebarList>
             <NavLink
               style={{ textDecoration: "none" }}
-              to={"/"}
+              to={"/home"}
             >
               <SidebarListItem >
                 <LineStyleIcon className="icon" />

@@ -6,11 +6,17 @@ import PublishIcon from "@mui/icons-material/Publish";
 import { useSelector } from "react-redux";
 import { useEffect, useMemo, useState } from "react";
 import { userRequest } from "../resquestMethods";
+import Topbar from "../components/topbar/Topbar.jsx";
+import Sidebar from '../components/sidebar/Sidebar.jsx'
+const Containerall = styled.div`
+  display: flex;
+  margin-top: 10px;
+`;
 const Container = styled.div`
   flex: 4;
   padding: 20px;
 `;
-
+//for checking
 const ProductTitle = styled.div`
   display: flex;
   align-items: center;
@@ -146,20 +152,14 @@ const Product = () => {
     ],
     []
   );
-
-
   const product = useSelector((state) =>
-  state.product.products.find((product) => product._id === productId)
+  state.product.products.allProduct.find((product) => product._id === productId)
   );
-  
-  console.log(product);
- 
-
   useEffect(() => {
     const getStats = async () => {
       try {
         const res = await userRequest.get("order/income/?pid=" + productId);
-        const list = res.data.sort((a,b)=>{
+        const list = res.data.inncome.sort((a,b)=>{
             return a._id - b._id
         })
         list.map((item) =>
@@ -175,10 +175,13 @@ const Product = () => {
     getStats();
   }, [productId, MONTHS]);
 
-  console.log(pStats);
 
   return (
-    <Container>
+    <>
+    <Topbar/>
+    <Containerall>
+      <Sidebar/>
+      <Container>
       <ProductTitle>
         <Title>Sản phẩm</Title>
         <Link to="/newProduct">
@@ -254,6 +257,10 @@ const Product = () => {
         </ProductForm>
       </ProductBot>
     </Container>
+    </Containerall>
+    </>
+    
+    
   );
 };
 

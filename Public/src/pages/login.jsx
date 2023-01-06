@@ -5,7 +5,7 @@ import styled from "styled-components";
 import Navbar from "../components/navbar";
 import { login } from "../redux/apiCalls";
 import { mobile } from "../responsive";
-
+//for checking
 const Container = styled.div`
   width: 100vw;
   height: 100vh;

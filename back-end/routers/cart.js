@@ -1,22 +1,17 @@
-const router = require("express").Router();
+const router = require('express').Router();
 const {
   verifyTokenAndAuthorization,
   verifyTokenIsAdmin,
-} = require("./verifyToken");
+} = require('./verifyToken');
 const {
   updateCart,
   deleteCart,
-  getAllCart,
-  getUserCart,
-  createCart,
-
-} = require("../controller/CartController");
-router.post("/", verifyTokenIsAdmin, createCart);
-router.get("/", verifyTokenIsAdmin, getAllCart);
-router.put("/:id", verifyTokenAndAuthorization, updateCart);
-router.get("/find/:id", verifyTokenAndAuthorization, getUserCart);
-router.delete("/:id",verifyTokenIsAdmin , deleteCart);
-
-
+  createCart,allCart,userCart
+} = require('../controller/CartController');
+router.post('/', verifyTokenIsAdmin, createCart);
+router.get('/', verifyTokenIsAdmin, allCart);
+router.put('/:id', verifyTokenAndAuthorization, updateCart);
+router.get('/find/:id', verifyTokenAndAuthorization, userCart);
+router.delete('/:id', verifyTokenIsAdmin, deleteCart);
 
 module.exports = router;

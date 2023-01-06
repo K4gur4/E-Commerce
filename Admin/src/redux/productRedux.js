@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+//for checking
 export const productSlice = createSlice({
   name: "product",
   initialState: {

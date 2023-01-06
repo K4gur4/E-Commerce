@@ -2,7 +2,8 @@ import { useState } from "react";
 import styled from "styled-components";
 import { useDispatch,useSelector } from "react-redux";
 import { login } from "../redux/apiCalls";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+//for checking
 
 const Container = styled.div`
   width: 100vw;
@@ -58,19 +59,25 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
 const user= useSelector(state=>state.user.currentUser)
-const {error}= useSelector(state=>state.user)
-const history= useHistory()
+
+const {error,isFetching}= useSelector(state=>state.user)
+const navigate= useNavigate()
 const [err,setErr]= useState(error)
 console.log(user);
-
   const handleLogin = async (e) => {
     e.preventDefault();
-      await  login(dispatch, { username, password });
-    setTimeout(() => {
-      history.push('/')
-    }, 2000); 
+     await login(dispatch, { username, password });
+      if(isFetching){
+        console.log('loading...');
+      }
+      else if(error){
+        console.log('err',error.message);
+      }
+      else{
+        navigate('/home')
+      }
+      window.location.reload()
   };
-  
   return (
     <>
       <Container>

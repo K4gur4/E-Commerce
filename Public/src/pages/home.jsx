@@ -10,7 +10,7 @@ import Footer from "../components/footer";
 import styled from "styled-components";
 import { mobile } from "../responsive";
 const Home = ()=>{
-
+//for checking
 const NewArrival = styled.p`
  font-size: 60px ;
  text-align: center;

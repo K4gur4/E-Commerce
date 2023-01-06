@@ -7,8 +7,16 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { userRequest } from "../resquestMethods";
+import Topbar from "../components/topbar/Topbar.jsx";
+import Sidebar from '../components/sidebar/Sidebar.jsx';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { DataGrid } from "@mui/x-data-grid";
 
 
+const Containerall = styled.div`
+  display: flex;
+  margin-top: 10px;
+`;
 const Container = styled.div`
   flex: 4;
   padding: 20px;
@@ -131,29 +139,127 @@ color: white;
 padding: 5px 20px;
 font-weight: 600;
 `
-
+const OrderListEdit= styled.button`
+border: none;
+border-radius: 10px;
+padding: 5px 10px;
+background-color: #3bb077;
+color: white;
+cursor: pointer;
+margin-right: 20px;
+`
+const Status = styled.button`
+ padding: 5px 7px;
+  border: none;
+  border-radius: 10px;
+  background: ${(props) =>
+    props.type === "Đã xác nhận"
+      ? "#93ff5d"
+      : props.type === "Đã giao"
+      ? "#e5faf2"
+      : props.type === "Đã hủy"
+      ? "#fff0f1"
+      : "#ebf1fe"};
+    color: black;
+`
+const USerOrder= styled.div`
+height: 50vh;
+margin:20px 0px;
+box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+`
 
 
 
 const User = () => {
   const location = useLocation();
   const userId = location.pathname.split("/")[2];
-  const [user,setUser]= useState({})
+  const [user,setUser]= useState([])
+  const [order,setOrder]= useState([])
   useEffect(() => {
     const getUser = async () => {
       try {
         const res = await userRequest.get("user/find/" + userId);
-        setUser(res.data)
+        setUser(res.data.user)
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    const getOrder = async () => {
+      try {
+        const res = await userRequest.get("order/find/" + userId);
+        setOrder(res.data.userOrder)
       } catch (err) {
         console.log(err);
       }
     };
     getUser();
+    getOrder();
   }, []);
+  const handleDelete = (id)=>{
+    setOrder(order.filter((item)=> item._id !== id))
+}
   const date = new Date(user.createdAt)
   const newDate= date.getDate()+'-'+ (date.getMonth()+1) + '-'+date.getFullYear()
-  console.log(user);
+  const columns = [
+        { field: '_id', headerName: 'ID', width: 200 },
+        { field: 'name', headerName: 'Name', width: 150 },
+        {
+          field: 'createdAt',
+          headerName: 'Ngày tạo',
+          type: 'string',
+          width: 100,
+          renderCell: (params) =>{
+            const date = new Date(params.row.createdAt)
+            const newDate= date.getDate()+'-'+ (date.getMonth()+1) + '-'+date.getFullYear()
+            return(
+                <span>{newDate}</span>
+            )
+          }
+        },
+        {
+            field: 'phone',
+            headerName: 'Số điện thoại',
+            type: 'string',
+            width: 120,
+          },
+          {
+            field: 'total',
+            headerName: 'Tổng cộng',
+            type: 'string',
+            width: 100,
+          },
+        {
+            field: 'status',
+            headerName: 'Trạng Thái',
+            type: 'string',
+            width: 120,
+            renderCell:(params)=>{
+                return(
+                    <Status type={params.row.status}>{params.row.status}</Status>
+                )
+            }
+        },
+        {
+            field: 'action',
+            headerName: 'action',
+            width: 150,
+            renderCell: (params)=>{
+                return (
+                    <>
+                    <Link to={"/order/"+params.row._id}>
+                    <OrderListEdit>Hiển thị</OrderListEdit>
+                    </Link>
+                    <DeleteIcon onClick={()=>handleDelete(params.row.id)} style={{color:"red",cursor: "pointer"}} />
+                    </>
+                )
+            }
+        }
+      ];
   return (
+    <>
+    <Topbar/>
+    <Containerall>
+      <Sidebar/>
     <Container>
       <UserTitleContainer>
         <UserTitle>Quản lý người dùng</UserTitle>
@@ -222,7 +328,20 @@ const User = () => {
             </UserUpdateForm>
         </UserUpdate>
       </UserContainer>
+      <USerOrder>
+      <DataGrid
+    rows={order}
+    columns={columns}
+    pageSize={10}
+    getRowId={(rows)=>rows._id}
+    rowsPerPageOptions={[10]}
+    checkboxSelection
+    disableSelectionOnClick
+  />
+      </USerOrder>
     </Container>
+    </Containerall>
+    </>
   );
 };
 

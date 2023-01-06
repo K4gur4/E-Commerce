@@ -7,6 +7,7 @@ import { cartRequest, orderRequest } from "../resquestMethods";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import axios from "axios";
+//for checking
 
 const Container = styled.div``;
 const Wrapper = styled.div`
@@ -45,16 +46,18 @@ const Status = styled.div`
   border: 1px solid;
   width: fit-content;
   padding: 5px;
+  border: none;
   border-radius: 10px;
   color: white;
   background: ${(props) =>
     props.value === "Đã xác nhận"
-      ? "#e5faf2"
+      ? "#2fff2b"
       : props.value === "Đã giao"
-      ? "#e5faf2"
+      ? "#47f7b3"
       : props.value === "Đã hủy"
-      ? "#fff0f1"
+      ? "#fa3542"
       : "#ebf1fe"};
+  color: black;
 `;
 const Left = styled.div``;
 const Right = styled.div`
@@ -75,7 +78,8 @@ const UserOrder = () => {
         const res = await axios.get(URL + `${user.dataLogin._id}`, {
           headers: { token: `Bearer ${user.accsessToken}` },
         });
-        setOrder(res.data);
+        console.log(res);
+        setOrder(res.data.userOrder);
       } catch (error) {
         console.log(error);
       }

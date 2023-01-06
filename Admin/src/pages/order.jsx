@@ -1,7 +1,14 @@
 import { useEffect, useState } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { userRequest } from "../resquestMethods";
+import Topbar from "../components/topbar/Topbar.jsx";
+import Sidebar from '../components/sidebar/Sidebar.jsx'
+const Containerall = styled.div`
+  display: flex;
+  margin-top: 10px;
+`;
+//for checking
 const Container = styled.div`
   flex: 4;
   padding: 20px;
@@ -97,30 +104,27 @@ const ProductItem= styled.span``
 const Order = () => {
   const location = useLocation();
   const ordertId = location.pathname.split("/")[2];
-  const history= useHistory()
+  const navigate= useNavigate()
   const [status,setStatus] = useState("")
-  const [order, setOrder] = useState({});
+  const [userOrder, setOrder] = useState({});
   useEffect(() => {
     const getOrder = async () => {
       try {
         const res = await userRequest.get("order/findOrder/" + ordertId);
-        setOrder(res.data[0]);
+        setOrder(res.data.order[0]);
       } catch (error) {
         console.log(error.message);
       }
     };
     getOrder();
   }, [ordertId]);
-  console.log("order", order);
-  console.log(status);
 
 
   const newStatus= async ()=>{
     try {
-        const res = await userRequest.put("order/" + ordertId,{status:status});
-        console.log(res);
+        await userRequest.put("order/" + ordertId,{status:status});
         alert("cập nhật trạng thái thành công")
-        history.push('/orderlist')
+        navigate('/orderlist')
     } catch (error) {
         console.log(error.message);
     }
@@ -130,7 +134,7 @@ const Order = () => {
         if(!status){
             alert("Bạn chưa chọn trạng thái mới")
         }
-        else if(status===order.status){
+        else if(status===userOrder.status){
             alert("Bạn chưa chọn trạng thái mới")
             
         }
@@ -139,7 +143,11 @@ const Order = () => {
         }
   }
   return (
-    <Container>
+    <>
+    <Topbar/>
+    <Containerall>
+      <Sidebar/>
+      <Container>
       <Title>Chi tiết đơn hàng</Title>
       <UserOrder>
         <Top>
@@ -147,19 +155,19 @@ const Order = () => {
             <OrderInfor>
               <OrderInforItem>
                 <OrderInforKey>Mã Đơn hàng:</OrderInforKey>
-                <OrderInforData>{order._id}</OrderInforData>
+                <OrderInforData>{userOrder._id}</OrderInforData>
               </OrderInforItem>
               <OrderInforItem>
                 <OrderInforKey>Tên người nhận:</OrderInforKey>{" "}
-                <OrderInforData>{order.name}</OrderInforData>
+                <OrderInforData>{userOrder.name}</OrderInforData>
               </OrderInforItem>
               <OrderInforItem>
                 <OrderInforKey>Địa chỉ:</OrderInforKey>
-                <OrderInforData>{order.address}</OrderInforData>
+                <OrderInforData>{userOrder.address}</OrderInforData>
               </OrderInforItem>
               <OrderInforItem>
                 <OrderInforKey>Thành phố:</OrderInforKey>
-                <OrderInforData>{order.city}</OrderInforData>
+                <OrderInforData>{userOrder.city}</OrderInforData>
               </OrderInforItem>
             </OrderInfor>
           </Left>
@@ -167,7 +175,7 @@ const Order = () => {
             <OrderInforItem>
             <OrderInforKey>Tổng tiền:</OrderInforKey>
               <OrderInforData>
-                {order.total?.toLocaleString("it-IT", {
+                {userOrder.total?.toLocaleString("it-IT", {
                   style: "currency",
                   currency: "VND",
                 })}
@@ -175,19 +183,19 @@ const Order = () => {
             </OrderInforItem>
             <OrderInforItem>
             <OrderInforKey>Hình thức thanh toán:</OrderInforKey>
-              <OrderInforData>{order.payMent}</OrderInforData>
+              <OrderInforData>{userOrder.payMent}</OrderInforData>
             </OrderInforItem>
             <OrderInforItem>
             <OrderInforKey>Trạng thái đơn hàng:</OrderInforKey>
-              <OrderInforStatus type={order.status}>
-                {order.status}
+              <OrderInforStatus type={userOrder.status}>
+                {userOrder.status}
               </OrderInforStatus>
             </OrderInforItem>
 
             <OrderInforItem>
             <OrderInforKey>Đổi trạng thái:</OrderInforKey>
-              <StatusSelect defaultValue={0} onChange={(e)=>{setStatus(e.target.value)}} name="status">
-              <StatusOption selected value={0} disabled>Chọn trạng thái mới</StatusOption>
+              <StatusSelect defaultValue={'0'} onChange={(e)=>{setStatus(e.target.value)}} name="status">
+              <StatusOption  value={'0'} disabled>Chọn trạng thái mới</StatusOption>
                 <StatusOption  value={"Đã xác nhận"}>Đã xác nhận</StatusOption>
                 <StatusOption value={"Đã giao"}>Đã giao</StatusOption>
                 <StatusOption value={"Đã hủy"}>Đã Hủy</StatusOption>
@@ -200,7 +208,7 @@ const Order = () => {
         </Top>
         <Bot>
             {
-                order.products?.map(
+                userOrder.products?.map(
                     (product)=>(
                         <ProductInfo>
                     <ProductImg src={product.img}/>
@@ -213,6 +221,9 @@ const Order = () => {
         </Bot>
       </UserOrder>
     </Container>
+    </Containerall>
+    </>
+    
   );
 };
 

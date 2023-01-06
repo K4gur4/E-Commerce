@@ -2,7 +2,14 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { register } from "../redux/apiCalls";
-
+import Topbar from "../components/topbar/Topbar.jsx";
+import Sidebar from '../components/sidebar/Sidebar.jsx';
+import { useNavigate } from "react-router-dom";
+const Containerall = styled.div`
+  display: flex;
+  margin-top: 10px;
+`;
+//for checking
 const Container = styled.div`
   flex: 4;
   margin-left: 20px;
@@ -59,6 +66,7 @@ const NewUserBtn = styled.button`
 
 const NewUser = () => {
   const [inputs,setInputs]= useState({})
+  const navigate= useNavigate()
   const dispatch= useDispatch()
   const handleChange= (e)=>{
     setInputs(prev=>{
@@ -66,14 +74,24 @@ const NewUser = () => {
     })
   }
 
-  const handleBtn= (e)=>{
+  const handleBtn= async (e)=>{
     e.preventDefault()
-    register(dispatch,inputs)
+    try {
+      await register(dispatch,inputs)
+      alert('Đăng ký thành công')
+      navigate('/users')
+    } catch (error) {
+      alert(error.message)
+    }
+    
   }
-  console.log(inputs);
   
   return (
-    <Container>
+    <>
+    <Topbar/>
+    <Containerall>
+      <Sidebar/>
+      <Container>
       <Title>Tạo người dùng mới</Title>
       <NewUserForm>
         <NewUserItem>
@@ -120,6 +138,9 @@ const NewUser = () => {
         </NewUserItem>
       </NewUserForm>
     </Container>
+    </Containerall>
+    </>
+    
   );
 };
 

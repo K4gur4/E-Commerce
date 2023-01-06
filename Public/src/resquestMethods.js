@@ -6,7 +6,7 @@ const user = JSON.parse(localStorage.getItem("persist:root"))?.user;
 const currentUser = user && JSON.parse(user).currentUser;
 const TOKEN = currentUser?.accsessToken;
 console.log("token",TOKEN);
-
+//for checking
 export const publicRequest = axios.create(
     {
         baseURL:BASE_URL

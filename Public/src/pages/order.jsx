@@ -9,6 +9,7 @@ import { createOrder } from "../redux/apiCalls";
 import { useHistory } from "react-router-dom";
 import PhoneInput from 'react-phone-number-input'
 import 'react-phone-number-input/style.css'
+//for checking
 const Container = styled.div``;
 const Wrapper = styled.div`
   padding: 20px;
@@ -124,11 +125,15 @@ const Order = () => {
       alert("Hãy điền đủ thông tin trước khi thanh toán!!")
     }
     else{
-    createOrder(dispatch, { userId, products, total, name, address,city, phone:`${phone}`,payMent });
-    alert('Đơn hàng đã được tạo, hãy kiểm tra giỏ hàng, cảm ơn bạn đã lựa chọn 7DECEMBER')
-    setTotal(0)
-    const path="/"
-    history.push(path) 
+      try {
+        createOrder(dispatch, { userId, products, total, name, address,city, phone:`${phone}`,payMent });
+        alert('Đơn hàng đã được tạo, hãy kiểm tra giỏ hàng, cảm ơn bạn đã lựa chọn 7DECEMBER')
+        setTotal(0)
+        const path="/"
+        history.push(path) 
+      } catch (error) {
+        alert('Đã có lỗi: ',error.message)
+      }
     }
   };
 console.log(products);

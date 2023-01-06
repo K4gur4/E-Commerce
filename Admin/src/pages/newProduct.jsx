@@ -6,7 +6,13 @@ import {
 import app from "../firebase";
 import { addProduct } from "../redux/apiCalls";
 import { useDispatch } from "react-redux";
-
+import Topbar from "../components/topbar/Topbar.jsx";
+import Sidebar from '../components/sidebar/Sidebar.jsx'
+const Containerall = styled.div`
+  display: flex;
+  margin-top: 10px;
+`;
+//for checking
 const Container = styled.div`
   flex: 4;
   padding: 20px;
@@ -112,7 +118,11 @@ console.log(file);
   console.log("inputs: ",inputs);
 
   return (
-    
+    <>
+    <Topbar/>
+    <Containerall>
+      <Sidebar/>
+      
     <Container>
       <Title>Thêm Sản phẩm mới</Title>
       <AddProductFrom>
@@ -150,6 +160,8 @@ console.log(file);
         <AddproductBtn onClick={handleClick}>Thêm sản phẩm</AddproductBtn>
       </AddProductFrom>
     </Container>
+    </Containerall>
+    </>
   );
 };
 

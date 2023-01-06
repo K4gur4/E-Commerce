@@ -1,6 +1,6 @@
 import {loginStart,loginFailure, loginSuccess, resStart, resSuccess, resFailure
 } from "./userRedux"
-
+//for checking
 import {getProductStart,getProductSuccess,getProductFailure,deleteProductStart,deleteProductSuccess,deleteProductFailure,updateProductFailure,updateProductStart,updateProductSuccess,addProductFailure,addProductStart,addProductSuccess} from './productRedux'
 import {publicRequest, userRequest} from "../resquestMethods"
 export const login = async (dispatch,user)=>{
