@@ -5,7 +5,7 @@ const createProduct = async (req, res) => {
   try {
     const newProduct = await Product.create(reqProduct);
     res.status(201).json({ newProduct: newProduct });
-    return
+    return;
   } catch (error) {
     res.status(500).json(error);
   }
@@ -20,8 +20,8 @@ const updateProduct = async (req, res) => {
       },
       { new: true }
     );
-    res.status(200).json({productUpdated:data});
-    return
+    res.status(200).json({ productUpdated: data });
+    return;
   } catch (error) {
     res.status(500).json(error);
   }
@@ -30,8 +30,8 @@ const updateProduct = async (req, res) => {
 const deleteProduct = async (req, res) => {
   try {
     await Product.findByIdAndDelete(req.params.id);
-    res.status(200)
-    return
+    res.status(200);
+    return;
   } catch (error) {
     res.status(500).json(error);
   }
@@ -40,8 +40,8 @@ const deleteProduct = async (req, res) => {
 const getProduct = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
-    res.status(200).json({product:product});
-    return
+    res.status(200).json({ product: product });
+    return;
   } catch (error) {
     res.status(500).json(error.message);
   }
@@ -69,8 +69,8 @@ const allProduct = async (req, res) => {
     } else {
       products = await Product.find();
     }
-    res.status(200).json({allProduct:products});
-    return
+    res.status(200).json({ allProduct: products });
+    return;
   } catch (error) {
     res.status(500).json(error.message);
   }

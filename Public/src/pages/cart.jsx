@@ -223,7 +223,7 @@ const Cart = () => {
               <SummaryItem>
                 <SummaryItemText>Phí vận chuyển</SummaryItemText>
                 <SummaryItemPrice>
-                  {(cart.total > 1000000 ? 0 : cart.total / 5).toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}
+                  {(cart.total > 500000 ? 0 : cart.total / 5).toLocaleString('it-IT', {style : 'currency', currency : 'VND'})}
                 </SummaryItemPrice>
               </SummaryItem>
 

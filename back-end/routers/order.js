@@ -11,7 +11,7 @@ const {
   getOrder,
   allOrder,
   userOrder,
-  dailyIcome
+  dailyIcome,
 } = require('../controller/orderController');
 router.post('/', verifyTokenAndAuthorization, createOrder);
 router.get('/', verifyTokenIsAdmin, allOrder);

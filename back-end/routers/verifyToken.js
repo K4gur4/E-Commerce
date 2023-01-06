@@ -14,7 +14,7 @@ const verifyToken = (req, res, next) => {
     });
   } else {
     res.status(401).json('You are not authenticated!');
-    return
+    return;
   }
 };
 
@@ -24,7 +24,7 @@ const verifyTokenAndAuthorization = (req, res, next) => {
       next();
     } else {
       res.status(403).json('You are not alowed to do that!');
-      return
+      return;
     }
   });
 };
@@ -35,7 +35,7 @@ const verifyTokenIsAdmin = (req, res, next) => {
       next();
     } else {
       res.status(403).json('You are not alowed to do that!');
-      return
+      return;
     }
   });
 };

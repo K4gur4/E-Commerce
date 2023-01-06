@@ -78,7 +78,6 @@ const UserOrder = () => {
         const res = await axios.get(URL + `${user.dataLogin._id}`, {
           headers: { token: `Bearer ${user.accsessToken}` },
         });
-        console.log(res);
         setOrder(res.data.userOrder);
       } catch (error) {
         console.log(error);
@@ -87,7 +86,6 @@ const UserOrder = () => {
     getOrders();
   }, [user.accsessToken,user.dataLogin._id]);
 
-  console.log("order", orders);
   return (
     <Container>
       <Navbar />
@@ -103,7 +101,6 @@ const UserOrder = () => {
             <Address>SĐT: {item.phone}</Address>
           </Left>
           <Center>
-  
           </Center>
           <Right>
             <Total>

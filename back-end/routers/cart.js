@@ -6,7 +6,9 @@ const {
 const {
   updateCart,
   deleteCart,
-  createCart,allCart,userCart
+  createCart,
+  allCart,
+  userCart,
 } = require('../controller/CartController');
 router.post('/', verifyTokenIsAdmin, createCart);
 router.get('/', verifyTokenIsAdmin, allCart);

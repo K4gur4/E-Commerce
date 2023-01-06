@@ -72,69 +72,65 @@ const monthlyIncome = async (req, res) => {
   const date = new Date();
   const lastMonth = new Date(date.setMonth(date.getMonth() - 1));
   const previousMonth = new Date(lastMonth.setMonth(lastMonth.getMonth() - 1));
-  console.log(previousMonth);
   try {
     const income = await Order.aggregate([
-          {
-            $match: {
-              createdAt: { $gte: previousMonth },
-            },
-          },
-          {
-            $project: {
-              month: { $month: '$createdAt' },
-              sales: '$total',
-            },
-          },
-          {
-            $group: {
-              _id: '$month',
-              revenue: { $sum: '$sales' },
-            },
-          },
-        ]);
-        res.status(200).json({ income: income.sort((a, b) => a._id - b._id) });
-        return;
-      } catch (error) {
-        console.log(error.message);
-        res.status(500).json(error.message);
-      }
+      {
+        $match: {
+          createdAt: { $gte: previousMonth },
+          status: 'Đã giao',
+        },
+      },
+      {
+        $project: {
+          month: { $month: '$createdAt' },
+          sales: '$total',
+        },
+      },
+      {
+        $group: {
+          _id: '$month',
+          revenue: { $sum: '$sales' },
+        },
+      },
+    ]);
+    res.status(200).json({ income: income.sort((a, b) => a._id - b._id) });
+    return;
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json(error.message);
+  }
 };
 
-const dailyIcome= async (req,res)=> {
-  const date= new Date()
+const dailyIcome = async (req, res) => {
+  const date = new Date();
   const lastMonth = new Date(date.setMonth(date.getMonth() - 1));
   try {
-    const data = await Order.aggregate(
-      [
-        {
-          $match: {
-            createdAt: { $gte: lastMonth },
-          },
+    const data = await Order.aggregate([
+      {
+        $match: {
+          createdAt: { $gte: lastMonth },
+          status: 'Đã giao',
         },
-        {
-          $project: {
-            day: { $dayOfMonth: '$createdAt' },
-            sales: '$total',
-          },
+      },
+      {
+        $project: {
+          day: { $dayOfMonth: '$createdAt' },
+          sales: '$total',
         },
-        {
-          $group: {
-            _id: '$day',
-            revenue: { $sum: '$sales' },
-          },
+      },
+      {
+        $group: {
+          _id: '$day',
+          revenue: { $sum: '$sales' },
         },
-        
-      ]
-    );
+      },
+    ]);
     res.status(200).json({ income: data });
-   
   } catch (error) {
     console.log(error.message);
     res.status(500).json(error);
   }
-  
-}
+};
 
 module.exports = {
   updateOrder,
@@ -144,5 +140,5 @@ module.exports = {
   getOrder,
   allOrder,
   userOrder,
-  dailyIcome
+  dailyIcome,
 };

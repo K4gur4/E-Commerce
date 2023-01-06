@@ -6,7 +6,9 @@ const {
 const {
   updateUser,
   deleteUser,
-  getUser,allUser,statsUser
+  getUser,
+  allUser,
+  statsUser,
 } = require('../controller/userController');
 
 router.get('/', verifyTokenIsAdmin, allUser);

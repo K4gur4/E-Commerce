@@ -15,6 +15,23 @@ const Container = styled.div`
   flex: 4;
   padding: 20px;
 `;
+const ProductTitle2 = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const Title = styled.h1``;
+
+const ProductAddBtn = styled.button`
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  background-color: gray;
+  color: white;
+  padding: 5px 20px;
+  font-weight: 600;
+`;
 
 const ProductList = styled.div`
 display: flex;
@@ -47,7 +64,7 @@ const Products = () => {
   useEffect(()=>{
     getProducts(dispatch)
   },[dispatch])
-console.log(products);
+
 
   const handleDelete = (id) => {
   deleteProducts(id,dispatch)
@@ -68,7 +85,7 @@ console.log(products);
         );
       },
     },
-    { field: "inStock", headerName: "Kho", width: 70 },
+    { field: "inStock", type:'boolean', headerName: "Kho", width: 70 },
     { field: "price", headerName: "Đơn giá", width: 100 },
     {
       field: "action",
@@ -96,6 +113,12 @@ console.log(products);
     <Containerall>
       <Sidebar/>
     <Container>
+    <ProductTitle2>
+        <Title>Quản lý sản phẩm</Title>
+        <Link to="/newProduct">
+          <ProductAddBtn>Thêm sản phẩm mới</ProductAddBtn>
+        </Link>
+      </ProductTitle2>
       <DataGrid
         rows={products}
         columns={columns}

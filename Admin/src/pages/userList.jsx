@@ -25,6 +25,23 @@ color: white;
 cursor: pointer;
 margin-right: 20px;
 `
+const UserTitleContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+`;
+
+const UserTitle = styled.h1``;
+
+const UserAddBtn = styled.button`
+  width: 170px;
+  border: none;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+`;
 
 
 const UserList = ()=>{
@@ -44,15 +61,15 @@ const UserList = ()=>{
     },[])
 
 const handleDelete = (id)=>{
-    console.log(id);
+ 
     setUsers(users.filter((item)=> item._id !== id))
 }
 
-console.log(users);
+
 
     const columns = [
         { field: '_id', headerName: 'ID', width: 200 },
-        { field: 'username', headerName: 'Name', width: 130 },
+        { field: 'username', headerName: 'Tên đăng nhập', width: 130 },
         {
           field: 'email',
           headerName: 'Email',
@@ -67,14 +84,14 @@ console.log(users);
           },
         {
             field: 'isAdmin',
-            headerName: 'Admin ???',
+            headerName: 'Phân quyền',
             type: 'boolean',
-            width: 90,
+            width: 100,
         },
         {
             field: 'action',
             headerName: 'action',
-            width: 150,
+            width: 100,
             renderCell: (params)=>{
                 return (
                     <>
@@ -94,7 +111,12 @@ console.log(users);
         <Containerall>
         <Sidebar/>
        <Container>
-        
+       <UserTitleContainer>
+        <UserTitle>Quản lý người dùng</UserTitle>
+        <Link to={'/newUser'}>
+        <UserAddBtn>Thêm người dùng mới</UserAddBtn>
+        </Link>
+      </UserTitleContainer>
         <DataGrid
         rows={users}
         columns={columns}

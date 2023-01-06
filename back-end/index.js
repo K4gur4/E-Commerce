@@ -8,12 +8,11 @@ const productRouter = require('./routers/product');
 const productOrder = require('./routers/order');
 const productCart = require('./routers/cart');
 const cors = require('cors');
-const configENV= require('./config')
-
+const configENV = require('./config');
 
 dotenv.config();
 app.use(express.json());
-const url= configENV.MONGODB_URL
+const url = configENV.MONGODB_URL;
 momgoose
   .connect(url)
   .then(() => console.log('BD Connection Completed'))

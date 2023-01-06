@@ -27,9 +27,7 @@ const App = () => {
         <Route path="/cart">
           <Cart />
         </Route>
-        <Route path="/login">
-          {user ? <Redirect to="/" /> : <Login />}
-        </Route>
+        <Route path="/login">{user ? <Redirect to="/" /> : <Login />}</Route>
         <Route path="/register">
           {user ? <Redirect to="/" /> : <Register />}
         </Route>

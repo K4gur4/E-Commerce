@@ -4,13 +4,15 @@ import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import EmailIcon from '@mui/icons-material/Email';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { userRequest } from "../resquestMethods";
 import Topbar from "../components/topbar/Topbar.jsx";
 import Sidebar from '../components/sidebar/Sidebar.jsx';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { DataGrid } from "@mui/x-data-grid";
+import { updateUser } from "../redux/apiCalls";
+import { useDispatch } from "react-redux";
 
 
 const Containerall = styled.div`
@@ -138,6 +140,9 @@ background-color: gray;
 color: white;
 padding: 5px 20px;
 font-weight: 600;
+&:disabled{
+  background-color: white;
+}
 `
 const OrderListEdit= styled.button`
 border: none;
@@ -174,7 +179,9 @@ const User = () => {
   const location = useLocation();
   const userId = location.pathname.split("/")[2];
   const [user,setUser]= useState([])
+  const [update,setUpdate]= useState([])
   const [order,setOrder]= useState([])
+  const dispatch= useDispatch()
   useEffect(() => {
     const getUser = async () => {
       try {
@@ -200,6 +207,13 @@ const User = () => {
 }
   const date = new Date(user.createdAt)
   const newDate= date.getDate()+'-'+ (date.getMonth()+1) + '-'+date.getFullYear()
+  const navigate=useNavigate()
+  const handleChange= (e)=>{
+    setUpdate(prev=>{
+      return {...prev, [e.target.name]:e.target.value}
+    })
+
+  }
   const columns = [
         { field: '_id', headerName: 'ID', width: 200 },
         { field: 'name', headerName: 'Name', width: 150 },
@@ -255,6 +269,11 @@ const User = () => {
             }
         }
       ];
+      const handleClick = async (e)=>{
+        e.preventDefault()
+         await updateUser(dispatch,userId,update)
+         navigate('/users')
+      }
   return (
     <>
     <Topbar/>
@@ -302,7 +321,7 @@ const User = () => {
                 <UserUpdateLeft>
                     <UserUpdateItem>
                         <UserUpdateLabel>Tên đăng nhập</UserUpdateLabel>
-                        <UserUpdateInput type={"text"} placeholder={user.username}></UserUpdateInput>
+                        <UserUpdateInput onChange={handleChange} name={'username'} type={"text"} placeholder={user.username}></UserUpdateInput>
                     </UserUpdateItem>
                     {/* <UserUpdateItem>
                         <UserUpdateLabel>Ngày sinh</UserUpdateLabel>
@@ -314,7 +333,7 @@ const User = () => {
                     </UserUpdateItem> */}
                     <UserUpdateItem>
                         <UserUpdateLabel>Email</UserUpdateLabel>
-                        <UserUpdateInput type={"email"} placeholder={user.email}></UserUpdateInput>
+                        <UserUpdateInput onChange={handleChange} name={'email'} type={"email"} placeholder={user.email}></UserUpdateInput>
                     </UserUpdateItem>
 
                     {/* <UserUpdateItem>
@@ -323,7 +342,7 @@ const User = () => {
                     </UserUpdateItem> */}
                 </UserUpdateLeft>
                 <UserUpdateRight>
-                    <UserUpdateBtn>Cập nhật</UserUpdateBtn>
+                    <UserUpdateBtn disabled={update.length===0? true:false} onClick={handleClick}>Cập nhật</UserUpdateBtn>
                 </UserUpdateRight>
             </UserUpdateForm>
         </UserUpdate>

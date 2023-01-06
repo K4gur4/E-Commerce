@@ -75,7 +75,7 @@ const FeaturedInfor = () => {
         try {
             const res= await orderRequest.get("order/daily")
             setDaily((res.data.income).sort((a,b)=>b._id-a._id))
-            serPerc2((res.data.income[0]?.revenue*100)/res.data.income[1]?.revenue)
+            serPerc2((res.data.income[0]?.revenue*100)/res.data.income[1]?.revenue-100)
         } catch (error) {
             console.log(error.message);
         }
@@ -84,9 +84,6 @@ const FeaturedInfor = () => {
         getIncome()
         getDaily()
     },[])
-    
-    console.log("daily",daily);
-console.log("income",income);
 return(
 <Container>
     <FeaturedItem>

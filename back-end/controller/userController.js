@@ -16,9 +16,10 @@ const updateUser = async (req, res) => {
       },
       { new: true }
     );
-    res.status(200).json({userUpdate:userUpdate});
-    return
+    res.status(200).json({ userUpdate: userUpdate });
+    return;
   } catch (error) {
+    console.log(error.message);
     res.status(500).json(error);
   }
 };
@@ -26,7 +27,7 @@ const updateUser = async (req, res) => {
 const deleteUser = async (req, res) => {
   try {
     await User.findByIdAndDelete(req.params.id);
-    res.status(200)
+    res.status(200);
   } catch (error) {
     res.status(500).json(error);
   }
@@ -36,8 +37,8 @@ const getUser = async (req, res) => {
   try {
     const getUser = await User.findById(req.params.id);
     const { password, ...others } = getUser._doc;
-    res.status(200).json({user:others});
-    return
+    res.status(200).json({ user: others });
+    return;
   } catch (error) {
     res.status(500).json(error);
   }
@@ -49,8 +50,8 @@ const allUser = async (req, res) => {
     const users = userNew
       ? await User.find().sort({ _id: -1 }).limit(5)
       : await User.find();
-    res.status(200).json({users:users});
-    return
+    res.status(200).json({ users: users });
+    return;
   } catch (error) {
     res.status(500).json(error.message);
   }
@@ -74,8 +75,8 @@ const statsUser = async (req, res) => {
         },
       },
     ]);
-    res.status(200).json({userStat:data.sort((a, b) => a._id - b._id) });
-    return
+    res.status(200).json({ userStat: data.sort((a, b) => a._id - b._id) });
+    return;
   } catch (error) {
     console.log(error);
     res.status(500).json(error.message);

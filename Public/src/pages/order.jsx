@@ -126,7 +126,7 @@ const Order = () => {
     }
     else{
       try {
-        createOrder(dispatch, { userId, products, total, name, address,city, phone:`${phone}`,payMent });
+       await createOrder(dispatch, { userId, products, total, name, address,city, phone:`${phone}`,payMent });
         alert('Đơn hàng đã được tạo, hãy kiểm tra giỏ hàng, cảm ơn bạn đã lựa chọn 7DECEMBER')
         setTotal(0)
         const path="/"
@@ -136,8 +136,6 @@ const Order = () => {
       }
     }
   };
-console.log(products);
-
   return (
     <Container>
       <Navbar />

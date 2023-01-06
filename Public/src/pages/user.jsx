@@ -58,7 +58,6 @@ const User = () => {
   const history=useHistory()
   const user = useSelector((state) => state.user.currentUser).dataLogin;
   const id = useSelector((state) => state.user.currentUser).dataLogin._id;
-  console.log(id);
   const [newPass, setNewPass] = useState("");
   const [newPass2, setNewPass2] = useState("");
   const dispatch=useDispatch()

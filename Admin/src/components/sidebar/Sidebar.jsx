@@ -18,6 +18,7 @@ import { Link, NavLink } from "react-router-dom";
 //for checking
 const Sidebar = () => {
     const activeLink= 'background-color: rgb(86, 89, 94) color: black color: white'
+    const [activeId, setActiveId] = useState(0);
   return (
     <Container>
       <SidebarWrapper>
@@ -28,8 +29,8 @@ const Sidebar = () => {
               style={{ textDecoration: "none" }}
               to={"/"}
             >
-              <SidebarListItem >
-                <LineStyleIcon className="icon" />
+              <SidebarListItem id= '0' onClick={e=>setActiveId(e.target.id)} >
+                <LineStyleIcon  className="icon" />
                 Trang chủ
               </SidebarListItem>
             </NavLink>
@@ -38,19 +39,19 @@ const Sidebar = () => {
         <SidebarMenu>
           <SidebarList>
             <NavLink style={{ textDecoration: "none" }} to={"/users"}>
-              <SidebarListItem>
+              <SidebarListItem id= '1' onClick={e=>setActiveId(e.target.id)}>
                 <PersonOutlineIcon className="icon" />
                 Khách hàng
               </SidebarListItem>
             </NavLink>
             <NavLink style={{ textDecoration: "none" }} to={"/products"}>
-              <SidebarListItem>
+              <SidebarListItem id= '2' onClick={e=>setActiveId(e.target.id)}>
                 <StorefrontIcon className="icon" />
                 Sản phẩm
               </SidebarListItem>
             </NavLink>
             <NavLink style={{ textDecoration: "none" }} to={"/orderList"}>
-              <SidebarListItem>
+              <SidebarListItem id= '3' onClick={e=>setActiveId(e.target.id)}>
                 <AttachMoneyIcon className="icon" />
                 Đơn hàng
               </SidebarListItem>

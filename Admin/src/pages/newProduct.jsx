@@ -68,7 +68,6 @@ const NewProduct = () => {
   const handleColor= (e)=>{
     setColor(e.target.value.split(","))
   }
-console.log(file);
   const handleClick= (e)=>{
       e.preventDefault()
       const fileName = new Date().getTime() + file.name;
@@ -115,7 +114,6 @@ console.log(file);
 
   }
 
-  console.log("inputs: ",inputs);
 
   return (
     <>

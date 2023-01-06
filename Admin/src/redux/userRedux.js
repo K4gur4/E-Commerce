@@ -40,7 +40,7 @@ const userSlice = createSlice({
       },
       changeSuccess: (state)=>{
         state.isFetching=false;
-    
+        
       },
       changeFailure: (state)=>{
         state.isFetching=false

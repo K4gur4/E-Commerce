@@ -113,7 +113,6 @@ const OrderList = () => {
     getOrders()
     },[])
 
-    console.log(orders);
 const handleDelete = (id)=>{
     setOrder(orders.filter((item)=> item._id !== id))
 }
@@ -125,6 +124,7 @@ return (
   <Containerall>
     <Sidebar/>
     <Container>
+      
     <DataGrid
     rows={orders}
     columns={columns}
