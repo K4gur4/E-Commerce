@@ -33,7 +33,9 @@ export const register = async (dispatch, user) => {
     const res = await publicRequest.post("/auth/register", user);
     dispatch(resSuccess(res.data));
   } catch (error) {
+    console.log(error.message);
     dispatch(resFailure());
+    alert('Có lỗi, hãy thử lại!!!')
   }
 };
 

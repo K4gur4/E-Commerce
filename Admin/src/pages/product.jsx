@@ -1,7 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Chart from "../components/chart";
-import { productData } from "../dummyData";
 import PublishIcon from "@mui/icons-material/Publish";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useMemo, useState } from "react";
@@ -299,7 +298,7 @@ const Product = () => {
                     style={{ display: "none" }}
                   />
                 </ProductUpload>
-                <ProductUploadButton disabled={inputs.length===0? true:false} onClick={handleUpdate}>
+                <ProductUploadButton disabled={inputs?.length===0? true:false} onClick={handleUpdate}>
                   Cập nhật sản phẩm
                 </ProductUploadButton>
               </ProductFormRight>

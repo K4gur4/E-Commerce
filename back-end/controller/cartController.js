@@ -20,14 +20,12 @@ const updateCart = async (req, res) => {
       },
       { new: true }
     );
-    // console.log('update completed');
     res.status(200).json({ cartUpdated: update });
     return;
   } catch (error) {
     res.status(500).json(error);
   }
 };
-
 const deleteCart = async (req, res) => {
   try {
     await Cart.findByIdAndDelete(req.params.id);
@@ -37,7 +35,6 @@ const deleteCart = async (req, res) => {
     res.status(500).json(error);
   }
 };
-
 const userCart = async (req, res) => {
   try {
     const cart = await Cart.find({ userId: req.params.userId });
@@ -47,7 +44,6 @@ const userCart = async (req, res) => {
     res.status(500).json(error);
   }
 };
-
 const allCart = async (req, res) => {
   try {
     const carts = await Cart.find();
@@ -57,7 +53,6 @@ const allCart = async (req, res) => {
     res.status(500).json(error);
   }
 };
-
 module.exports = {
   updateCart,
   deleteCart,

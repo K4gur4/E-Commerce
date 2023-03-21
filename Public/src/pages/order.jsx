@@ -120,7 +120,7 @@ const Order = () => {
   const [city,setCity]= useState (null)
   const [payMent,setPayment]= useState(null)
   const history=useHistory()
-  const handleOrder = () => {
+  const handleOrder = async () => {
     if(!name||!address||!phone||!city||!payMent){
       alert("Hãy điền đủ thông tin trước khi thanh toán!!")
     }

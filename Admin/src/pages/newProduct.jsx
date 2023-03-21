@@ -50,8 +50,8 @@ const AddproductBtn= styled.button`
     cursor: pointer;
 `
 const NewProduct = () => {
-  const [inputs,setInputs]= useState({})
-  const [file,setFile]= useState({})
+  const [inputs,setInputs]= useState([])
+  const [file,setFile]= useState([])
   const [cat,setCat]= useState([])
   const [color,setColor]= useState([])
   const dispatch= useDispatch()
@@ -139,6 +139,7 @@ const NewProduct = () => {
         <AddproductItem>
           <AddproductLabel>Khả dụng</AddproductLabel>
           <select name="inStock" onChange={handleChange}>
+            <option value={'0'} disabled></option>
             <option value={true}>Yes</option>
             <option value={false}>No</option>
           </select>
@@ -155,7 +156,7 @@ const NewProduct = () => {
           <AddproductLabel>Đơn giá</AddproductLabel>
           <AddproductInput name="price" type={"number"} onChange={handleChange}/>
         </AddproductItem>
-        <AddproductBtn onClick={handleClick}>Thêm sản phẩm</AddproductBtn>
+        <AddproductBtn  onClick={handleClick}>Thêm sản phẩm</AddproductBtn>
       </AddProductFrom>
     </Container>
     </Containerall>

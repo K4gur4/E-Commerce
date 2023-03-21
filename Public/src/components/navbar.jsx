@@ -202,7 +202,6 @@ const Navbar = () => {
         <ExtendWrapper>
           <Left>
             <Logo onClick={handleHome}> 7DECEMBER. </Logo>
-
             <Link to="/cart">
               <Badge badgeContent={quantity} color="primary">
                 <ShoppingCartOutlinedIcon />

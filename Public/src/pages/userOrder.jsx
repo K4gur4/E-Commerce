@@ -10,14 +10,30 @@ import axios from "axios";
 //for checking
 
 const Container = styled.div``;
-const Wrapper = styled.div`
-  display: flex;
+const Top = styled.div`
+display: flex;
   padding: 10px;
   border: 1px solid gray;
   margin: 10px 10px;
   justify-content: space-between;
   background: gray;
-  box-shadow: 0px 0px 15px -10px rgba(0,0,0,0.75) ;
+  box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);`
+
+
+const Bot = styled.div`
+  padding: 10px;
+  border: 1px solid gray;
+  margin: 0px 10px;
+  justify-content: space-between;
+  background: white;
+  box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);`;
+
+
+
+
+const Wrapper = styled.div`
+display: flex;
+flex-direction: column;
 `;
 const Title = styled.h1`
   font-weight: 300;
@@ -37,11 +53,18 @@ const ProductInfor = styled.div`
   display: flex;
   flex-direction: column;
   font-size: smaller;
+  display: block;
+
 `;
-const ProductName = styled.div``;
+const ProductName = styled.span`
+padding: 2px;
+color: white;
+`;
+
 const Total = styled.div`
   color: white;
 `;
+
 const Status = styled.div`
   border: 1px solid;
   width: fit-content;
@@ -67,7 +90,10 @@ const Right = styled.div`
   justify-content: space-between;
 `;
 
-const Center = styled.div``
+const Center = styled.div`
+display: flex;
+flex-direction: column;
+`;
 const UserOrder = () => {
   const user = useSelector((state) => state.user.currentUser);
   const [orders, setOrder] = useState();
@@ -84,7 +110,7 @@ const UserOrder = () => {
       }
     };
     getOrders();
-  }, [user.accsessToken,user.dataLogin._id]);
+  }, [user.accsessToken, user.dataLogin._id]);
 
   return (
     <Container>
@@ -93,27 +119,36 @@ const UserOrder = () => {
       <Title>Đơn hàng của bạn</Title>
       {orders?.map((item) => (
         <Wrapper>
-          <Left>
-            <User>Người nhận: {item.name}</User>
-            <Address>
-              Địa chỉ: {item.address} - {item.city}
-            </Address>
-            <Address>SĐT: {item.phone}</Address>
-          </Left>
-          <Center>
-          </Center>
-          <Right>
-            <Total>
-              {
-                item.total.toLocaleString("it-IT", {
+          <Top>
+            <Left>
+              <User>Người nhận: {item.name}</User>
+              <Address>
+                Địa chỉ: {item.address} - {item.city}
+              </Address>
+              <Address>SĐT: {item.phone}</Address>
+            </Left>
+            <Center>
+            
+              {item.products.map(product=>(
+                <ProductName>{product.title} x {product.quantity} = {(product.price*product.quantity).toLocaleString("it-IT", {
+                  style: "currency",
+                  currency: "VND",
+                })}</ProductName>
+              ))}
+            
+            </Center>
+            <Right>
+              <Total>
+                {item.total.toLocaleString("it-IT", {
                   style: "currency",
                   currency: "VND",
                 })}
-            </Total>
-            <Status value={item.status}>{item.status}</Status>
-          </Right>
-
-         
+              </Total>
+              <Status value={item.status}>{item.status}</Status>
+            </Right>
+          </Top>
+          {/* <Bot>
+          </Bot> */}
         </Wrapper>
       ))}
 

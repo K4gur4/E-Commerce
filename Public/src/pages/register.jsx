@@ -78,6 +78,7 @@ const Register = () => {
   });
 const {confirmPassword,...other}=values;
 const history=useHistory()
+const err= useSelector(state=>state.user.error)
   const inputs = [
     {
       id: 1,
@@ -124,13 +125,18 @@ const history=useHistory()
   const handleFocus = (e) => {
     setFocused(true);
   };
-  const handleClick = (e) => {
+  const handleClick = async (e) => {
     e.preventDefault();
-    register(dispatch,{...other})
-    alert("đăng ký thành công, hãy đăng nhập")
-    const path="/login"
-    history.push(path)
+    try {
+       await register(dispatch,other)
+     alert('Đăng ký thành công')
+
+      history.push('/login')
+     } catch (error) {
+      console.log(error.message);
+     }
   };
+  console.log(other);
   return (
     <>
     <Navbar/>

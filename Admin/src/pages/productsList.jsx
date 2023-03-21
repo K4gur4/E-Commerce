@@ -57,7 +57,8 @@ cursor: pointer;
 margin-right: 20px;`
 
 const Products = () => {
-  const products= useSelector((state)=> state.product.products.allProduct)
+  const products= useSelector((state)=> state?.product?.products.allProduct  )
+  console.log(products);
   const dispatch= useDispatch()
 
  
@@ -79,8 +80,8 @@ const Products = () => {
       renderCell: (params) => {
         return (
           <ProductList>
-            <Img src={params.row.img} alt={params.row.title} />
-            <ProductTitle> {params.row.title}</ProductTitle>
+            <Img src={params.row?.img} alt={params.row?.title} />
+            <ProductTitle> {params.row?.title}</ProductTitle>
           </ProductList>
         );
       },
